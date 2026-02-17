@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Flow Diagrams — LMS ↔ HC Integration</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; }
+    .header { background: #1e293b; color: #fff; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .header h1 { font-size: 22px; font-weight: 600; }
+    .header a { color: #93c5fd; text-decoration: none; font-size: 14px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
+    .diagram-section { background: #fff; border-radius: 12px; padding: 32px; margin-bottom: 32px; border: 1px solid #e2e8f0; }
+    .diagram-section h2 { font-size: 20px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .diagram-section .subtitle { font-size: 14px; color: #64748b; margin-bottom: 24px; }
+    .flow-diagram { overflow-x: auto; padding: 20px 0; }
+
+    /* Flow styles */
+    .flow { display: flex; align-items: flex-start; gap: 0; min-width: 900px; }
+    .flow-step { display: flex; flex-direction: column; align-items: center; min-width: 120px; position: relative; }
+    .flow-node {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 110px;
+      border: 2px solid;
+      position: relative;
+      z-index: 2;
+    }
+    .node-guest { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+    .node-hc { background: #dbeafe; border-color: #3b82f6; color: #1e40af; }
+    .node-lms { background: #f3e8ff; border-color: #8b5cf6; color: #5b21b6; }
+    .node-bot { background: #dcfce7; border-color: #22c55e; color: #166534; }
+    .node-db { background: #f1f5f9; border-color: #64748b; color: #334155; }
+    .node-signalr { background: #fce7f3; border-color: #ec4899; color: #9d174d; }
+    .node-ai { background: #ede9fe; border-color: #7c3aed; color: #4c1d95; }
+    .node-rules { background: #fff7ed; border-color: #f97316; color: #9a3412; }
+
+    .flow-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      padding-top: 8px;
+    }
+    .arrow-line {
+      height: 2px;
+      background: #94a3b8;
+      width: 60px;
+      position: relative;
+    }
+    .arrow-line::after {
+      content: '▶';
+      position: absolute;
+      right: -8px;
+      top: -8px;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .arrow-label {
+      font-size: 10px;
+      color: #64748b;
+      text-align: center;
+      max-width: 100px;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* Sequence diagram style */
+    .sequence { position: relative; }
+    .seq-participants {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding: 0 20px;
+    }
+    .seq-participant {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      min-width: 100px;
+    }
+    .seq-steps { padding: 0 20px; }
+    .seq-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .seq-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1e293b;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+    .seq-step-content {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .seq-step-content.from-guest { background: #fef3c7; border-left: 3px solid #f59e0b; }
+    .seq-step-content.from-hc { background: #dbeafe; border-left: 3px solid #3b82f6; }
+    .seq-step-content.from-lms { background: #f3e8ff; border-left: 3px solid #8b5cf6; }
+    .seq-step-content.from-bot { background: #dcfce7; border-left: 3px solid #22c55e; }
+    .seq-step-content.from-system { background: #fce7f3; border-left: 3px solid #ec4899; }
+    .seq-step-content.from-ai { background: #ede9fe; border-left: 3px solid #7c3aed; }
+    .seq-step-content strong { font-weight: 600; }
+    .seq-step-content .direction { font-size: 11px; color: #64748b; }
+
+    /* Sync table */
+    .sync-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .sync-table th { background: #1e293b; color: #fff; padding: 10px 14px; text-align: left; font-weight: 500; }
+    .sync-table td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+    .sync-table tr:hover { background: #f8fafc; }
+    .sync-yes { color: #16a34a; font-weight: 600; }
+    .sync-no { color: #dc2626; font-weight: 600; }
+    .sync-arrow { color: #3b82f6; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 2px solid;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Data Flow Diagrams &mdash; LMS &#8596; HyperConnect Integration</h1>
+    <a href="../index.html">&larr; Back to Hub</a>
+  </div>
+
+  <div class="container">
+
+    <!-- DIAGRAM 1: New Lead from Voicemail -->
+    <div class="diagram-section">
+      <h2>&#128203; Flow 1: New Lead from Voicemail &rarr; LMS &rarr; Conversation Sync</h2>
+      <div class="subtitle">Unknown caller leaves voicemail &rarr; Smart Bot creates lead &rarr; Agent responds via LMS &rarr; Conversation syncs to HyperConnect</div>
+
+      <div class="seq-steps">
+        <div class="seq-step">
+          <div class="seq-step-num">1</div>
+          <div class="seq-step-content from-guest">
+            <strong>Guest (unknown number)</strong> leaves voicemail in HyperConnect
+            <div class="direction">Guest &rarr; HyperConnect</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">2</div>
+          <div class="seq-step-content from-bot">
+            <strong>Voicemail Smart Bot</strong> processes voicemail, creates guest indicator with lead flag in DB
+            <div class="direction">HyperConnect &rarr; Smart Bot &rarr; Database</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">3</div>
+          <div class="seq-step-content from-lms">
+            <strong>New Lead created</strong> in AI Lead Manager (source: voicemail). Timeline event stored.
+            <div class="direction">Smart Bot &rarr; LMS &rarr; Database</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">4</div>
+          <div class="seq-step-content from-system">
+            <strong>SignalR pushes</strong> "New lead created" event to HyperConnect timeline. Lead badge appears.
+            <div class="direction">Database &rarr; SignalR &rarr; HyperConnect</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">5</div>
+          <div class="seq-step-content from-lms">
+            <strong>Sales agent sends SMS</strong> from LMS to lead. Message stored in lead timeline.
+            <div class="direction">Agent &rarr; LMS &rarr; Database</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">6</div>
+          <div class="seq-step-content from-system">
+            <strong>SMS syncs to HyperConnect</strong> via SignalR. Appears in person's timeline with "via LMS" tag.
+            <div class="direction">Database &rarr; SignalR &rarr; HyperConnect (bidirectional sync)</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">7</div>
+          <div class="seq-step-content from-guest">
+            <strong>Guest replies via SMS</strong>. Reply appears in HyperConnect AND all active lead timelines in LMS.
+            <div class="direction">Guest &rarr; HyperConnect &rarr; SignalR &rarr; LMS (all active leads)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background:#fef3c7;border-color:#f59e0b"></div> Guest Action</div>
+        <div class="legend-item"><div class="legend-color" style="background:#dbeafe;border-color:#3b82f6"></div> HyperConnect</div>
+        <div class="legend-item"><div class="legend-color" style="background:#f3e8ff;border-color:#8b5cf6"></div> LMS Action</div>
+        <div class="legend-item"><div class="legend-color" style="background:#dcfce7;border-color:#22c55e"></div> Bot/Auto</div>
+        <div class="legend-item"><div class="legend-color" style="background:#fce7f3;border-color:#ec4899"></div> SignalR Sync</div>
+      </div>
+    </div>
+
+    <!-- DIAGRAM 2: Existing Guest → New Lead → Dual Timeline -->
+    <div class="diagram-section">
+      <h2>&#128203; Flow 2: Existing Guest Creates New Lead &rarr; Dual Timeline Behavior</h2>
+      <div class="subtitle">2-year guest "Anurag Duke" inquires about Botox &rarr; Agent creates lead from HC &rarr; Lead-specific events stay in LMS; communications sync</div>
+
+      <div class="seq-steps">
+        <div class="seq-step">
+          <div class="seq-step-num">1</div>
+          <div class="seq-step-content from-guest">
+            <strong>Existing guest "Anurag Duke"</strong> (2-year history) inquires about Botox treatment in HyperConnect
+            <div class="direction">Guest &rarr; HyperConnect</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">2</div>
+          <div class="seq-step-content from-hc">
+            <strong>Agent creates lead</strong> for Anurag from HyperConnect. Lead linked to existing guest ID. Lead flag added.
+            <div class="direction">Agent in HC &rarr; LMS &rarr; Database</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">3</div>
+          <div class="seq-step-content from-system">
+            <strong>"New lead created" event</strong> appears in HC timeline. Lead badge added to Anurag's entry.
+            <div class="direction">SignalR &rarr; HyperConnect</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">4</div>
+          <div class="seq-step-content from-lms" style="border-left-color:#f59e0b;background:#fffbeb">
+            <strong>&#9888; HyperConnect timeline:</strong> Shows 2-year history + "New lead created" event. Full person context preserved.<br>
+            <strong>&#9888; LMS timeline:</strong> Fresh timeline for Botox lead only. No 2-year history.
+            <div class="direction">Different paradigms: Person-centric (HC) vs Lead-centric (LMS)</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">5</div>
+          <div class="seq-step-content from-lms">
+            <strong>Agent adds Task</strong> "Follow up on Botox pricing" in LMS.
+            <div class="direction">LMS only &mdash; does NOT sync to HC (lead-specific event)</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">6</div>
+          <div class="seq-step-content from-lms">
+            <strong>Agent sends SMS</strong> "Here's the Botox pricing info" from LMS.
+            <div class="direction">LMS &rarr; SignalR &rarr; HyperConnect (appears in Anurag's 2-year timeline)</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px;margin-top:20px;font-size:13px">
+        <strong>&#128161; Key Design Principle:</strong> Communications (SMS, calls, voicemails) sync bidirectionally. Lead-specific management events (tasks, notes, stage changes) remain in LMS only. This preserves distinct value propositions of both products.
+      </div>
+    </div>
+
+    <!-- DIAGRAM 3: AI Call Scheduling -->
+    <div class="diagram-section">
+      <h2>&#128203; Flow 3: AI Call Scheduling &rarr; Rule Validation &rarr; Execution &rarr; Result Logging</h2>
+      <div class="subtitle">Agent selects leads &rarr; Schedules AI calls &rarr; Business hours validated &rarr; AI executes calls &rarr; Results logged in both systems</div>
+
+      <div class="seq-steps">
+        <div class="seq-step">
+          <div class="seq-step-num">1</div>
+          <div class="seq-step-content from-lms">
+            <strong>Sales agent selects lead(s)</strong> in LMS, clicks "AI Call", fills prompt & context in scheduling modal.
+            <div class="direction">Agent &rarr; LMS UI</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">2</div>
+          <div class="seq-step-content from-ai" style="border-left-color:#f97316;background:#fff7ed">
+            <strong>Business Hours Rules Engine</strong> validates schedule against state/region rules.<br>
+            &#10004; If within business hours: Approved<br>
+            &#10060; If outside: Auto-adjusts to next valid time slot (e.g., 9:00 AM next business day)
+            <div class="direction">Scheduler &rarr; Rules Engine &rarr; Scheduler</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">3</div>
+          <div class="seq-step-content from-system">
+            <strong>"AI call scheduled"</strong> event added to LMS timeline. Agent notified of confirmed time.
+            <div class="direction">Database &rarr; SignalR &rarr; LMS</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">4</div>
+          <div class="seq-step-content from-ai">
+            <strong>At scheduled time, AI engine executes call.</strong> Can run 100+ parallel calls simultaneously (bulk mode at 7:30 AM).
+            <div class="direction">AI Calling Engine &rarr; Lead Phone Numbers</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">5</div>
+          <div class="seq-step-content from-ai">
+            <strong>Call results logged:</strong> Answered/Not answered, duration, sentiment score, key insights, recording link.
+            <div class="direction">AI Engine &rarr; Database</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">6</div>
+          <div class="seq-step-content from-system">
+            <strong>"AI call completed"</strong> event appears in LMS timeline AND syncs to HyperConnect person timeline.
+            <div class="direction">Database &rarr; SignalR &rarr; LMS + HyperConnect</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIAGRAM 4: Lead Conversion -->
+    <div class="diagram-section">
+      <h2>&#128203; Flow 4: Lead Conversion &rarr; Badge Removal &rarr; Guest Transition</h2>
+      <div class="subtitle">Lead marked as Won &rarr; Confirmation &rarr; Badge removed in HC &rarr; Timeline archived in LMS &rarr; Guest profile continues</div>
+
+      <div class="seq-steps">
+        <div class="seq-step">
+          <div class="seq-step-num">1</div>
+          <div class="seq-step-content from-lms">
+            <strong>Sales manager clicks "Convert Lead"</strong> in LMS (or sets sales stage to "Won").
+            <div class="direction">Agent &rarr; LMS UI</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">2</div>
+          <div class="seq-step-content from-lms">
+            <strong>Confirmation dialog shown:</strong> "Mark this lead as converted? This will remove the lead indicator in HyperConnect."
+            <div class="direction">LMS UI</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">3</div>
+          <div class="seq-step-content from-system">
+            <strong>Lead flag removed</strong> in database. SignalR pushes real-time update.
+            <div class="direction">LMS &rarr; Database &rarr; SignalR</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">4</div>
+          <div class="seq-step-content from-hc">
+            <strong>HyperConnect:</strong> Lead badge removed immediately. "Lead converted" event added to timeline. Entry becomes regular guest.
+            <div class="direction">SignalR &rarr; HyperConnect</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">5</div>
+          <div class="seq-step-content from-lms">
+            <strong>LMS:</strong> Lead status changes to "Converted" (read-only). Timeline archived but accessible. If person has other leads, badge count updates (e.g., "2 Leads" &rarr; "1 Lead").
+            <div class="direction">LMS UI update</div>
+          </div>
+        </div>
+        <div class="seq-step">
+          <div class="seq-step-num">6</div>
+          <div class="seq-step-content from-hc">
+            <strong>Guest profile continues:</strong> All communications from before and after conversion visible in HyperConnect. Full continuity preserved.
+            <div class="direction">HyperConnect (person-centric paradigm)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYNC RULES TABLE -->
+    <div class="diagram-section">
+      <h2>&#128203; Timeline Event Sync Rules</h2>
+      <div class="subtitle">What syncs where and in which direction</div>
+
+      <table class="sync-table">
+        <thead>
+          <tr>
+            <th>Event Type</th>
+            <th>Visible in LMS</th>
+            <th>Visible in HC</th>
+            <th>Sync Direction</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SMS Inbound</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>Appears in all active leads for person</td>
+          </tr>
+          <tr>
+            <td><strong>SMS Outbound</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>"via LMS" tag shown in HC</td>
+          </tr>
+          <tr>
+            <td><strong>Manual Call</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>Includes duration, outcome</td>
+          </tr>
+          <tr>
+            <td><strong>AI Call</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>Includes sentiment, recording</td>
+          </tr>
+          <tr>
+            <td><strong>Voicemail</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>May trigger lead creation</td>
+          </tr>
+          <tr style="background:#fef2f2">
+            <td><strong>Task</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-no">&#10060; No</td>
+            <td>&#8212; None</td>
+            <td>Lead-specific management event</td>
+          </tr>
+          <tr style="background:#fef2f2">
+            <td><strong>Note</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-no">&#10060; No</td>
+            <td>&#8212; None</td>
+            <td>Lead-specific management event</td>
+          </tr>
+          <tr style="background:#fef2f2">
+            <td><strong>Private Note</strong></td>
+            <td class="sync-yes">&#10004; Yes (private)</td>
+            <td class="sync-no">&#10060; No</td>
+            <td>&#8212; None</td>
+            <td>Internal-only, never synced</td>
+          </tr>
+          <tr style="background:#fef2f2">
+            <td><strong>Lead Stage Change</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-no">&#10060; No</td>
+            <td>&#8212; None</td>
+            <td>Lead-specific management event</td>
+          </tr>
+          <tr>
+            <td><strong>New Lead Created</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Event marker</td>
+            <td class="sync-arrow">&rarr; LMS to HC</td>
+            <td>Clickable deep link to LMS</td>
+          </tr>
+          <tr>
+            <td><strong>Lead Converted</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Event marker</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>Triggers badge removal in HC</td>
+          </tr>
+          <tr>
+            <td><strong>Appointment Booked</strong></td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-yes">&#10004; Yes</td>
+            <td class="sync-arrow">&#8596; Bidirectional</td>
+            <td>Guest event, visible in both</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Architecture Overview -->
+    <div class="diagram-section">
+      <h2>&#128203; Architecture: Component Extraction Model</h2>
+      <div class="subtitle">How HyperConnect components are reused in LMS as Flutter packages</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:16px">
+        <div style="padding:20px;border-radius:10px;background:#dcfce7;border:2px solid #22c55e">
+          <div style="font-size:14px;font-weight:700;color:#166534;margin-bottom:8px">&#10004; Voice Package</div>
+          <div style="font-size:13px;color:#166534;line-height:1.5">
+            <strong>Status:</strong> Production-ready<br>
+            <strong>Type:</strong> Flutter plug-and-play<br>
+            <strong>Config:</strong> Org ID, Center ID, SignalR, Voice infra URLs<br>
+            <strong>Features:</strong> Outbound calls, hold, mute, recording, transfer
+          </div>
+        </div>
+        <div style="padding:20px;border-radius:10px;background:#fef3c7;border:2px solid #f59e0b">
+          <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:8px">&#9888; Messaging Component</div>
+          <div style="font-size:13px;color:#92400e;line-height:1.5">
+            <strong>Status:</strong> POC done, NOT production-ready<br>
+            <strong>Type:</strong> Flutter component<br>
+            <strong>Challenge:</strong> Not designed for plug-and-play extraction<br>
+            <strong>Next:</strong> Refactor for standalone package
+          </div>
+        </div>
+        <div style="padding:20px;border-radius:10px;background:#fee2e2;border:2px solid #ef4444">
+          <div style="font-size:14px;font-weight:700;color:#991b1b;margin-bottom:8px">&#10060; WhatsApp Component</div>
+          <div style="font-size:13px;color:#991b1b;line-height:1.5">
+            <strong>Status:</strong> Not started<br>
+            <strong>Type:</strong> Future Flutter package<br>
+            <strong>Timeline:</strong> Phase 3 (Q3 2026)<br>
+            <strong>Scope:</strong> Multi-channel communication
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding:16px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px">
+        <div style="font-size:14px;font-weight:600;color:#0369a1;margin-bottom:8px">Real-Time Infrastructure</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:12px">
+          <div style="padding:10px;background:#fff;border-radius:6px;border:1px solid #e2e8f0;text-align:center">
+            <strong>SignalR Hub</strong><br>Real-time events
+          </div>
+          <div style="padding:10px;background:#fff;border-radius:6px;border:1px solid #e2e8f0;text-align:center">
+            <strong>Voice Infra</strong><br>Call routing/recording
+          </div>
+          <div style="padding:10px;background:#fff;border-radius:6px;border:1px solid #e2e8f0;text-align:center">
+            <strong>WebSocket</strong><br>Voice signaling
+          </div>
+          <div style="padding:10px;background:#fff;border-radius:6px;border:1px solid #e2e8f0;text-align:center">
+            <strong>Token Provider</strong><br>Auth/authz tokens
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

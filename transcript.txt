@@ -1,0 +1,984 @@
+HC -- Leads-20260205_140219-Meeting Recording
+5 February 2026, 08:32am
+32m 30s
+
+Balakrishna Narayanan started transcription
+
+Balakrishna Narayanan   0:09
+Mm.
+Ball span.
+
+Adit Kohli   0:28
+On the marketing side, when do you think you will get the resources and you will be able to start full steam?
+
+Balakrishna Narayanan   0:35
+Uh...
+I am hoping that...
+Yeah, bit of next week, like next week, say types.
+
+Adit Kohli   0:46
+OK, good luck.
+
+Balakrishna Narayanan   0:47
+Because I want to get leads in a good shape, then we can get started.
+
+Adit Kohli   0:51
+Okay, I'll squeeze in one more review on Monday, ticket, and we'll just go over it. This marketing is also under Anurag now, right? Both marketing and LMS tickets, I'll include him also.
+
+Balakrishna Narayanan   0:53
+Yeah, yeah, yeah.
+Yeah.
+I think we can start, and let's hope that he joins, so he shows online.
+Teja, so...
+
+Adit Kohli   1:17
+So, can you see my screen?
+
+Balakrishna Narayanan   1:20
+Yeah.
+
+Adit Kohli   1:20
+So, the messaging component, so I think this is exactly both looking like, as well as behaving like, what how it does on Hyper Connect.
+
+Balakrishna Narayanan   1:32
+Bura.
+
+Adit Kohli   1:32
+Earlier it was somewhere here, right on the top.
+
+Balakrishna Narayanan   1:36
+Bang.
+
+Adit Kohli   1:37
+Because that is 1 change here. The other change that I'm not done right now is the calling functions are still here, but on Hyperconnect they are somewhere here on the middle. So, but then Hyperconnect doesn't have this option of scheduling an AI call at least for now. So any inputs on should be.
+look at making it exactly as hyperconnect or do you think this is fine as is?
+
+Balakrishna Narayanan   2:04
+Are you planning to change the hyperconnect UI?
+
+Adit Kohli   2:07
+Narayanan, I think that is pretty stable and everybody has gotten used to it now.
+
+Balakrishna Narayanan   2:12
+So maybe we should mimic hyperconnects you right now.
+
+Adit Kohli   2:15
+Take it, then I'll, I think even the middle pane then shows the name of the guest here, not activities, and then it has these actions here, so I'll try to adjust this section to include the calling functions here only then, yeah.
+
+Balakrishna Narayanan   2:16
+To keep it consistent, because where...
+OK, and I think, yeah, Anurag just said that he will join it.
+
+Adit Kohli   2:30
+OK.
+Okay, so that was the second change.
+And then on the hyperconnect side, let me just go through this prototype.
+Yeah, on the hyperconnect side.
+The one thing that we have added is this indicator of...
+A line item here being a lead versus a guest, so wherever it is a lead, there is this badge attached to it, and this is how HyperNet does it, like these are the calling actions here, so maybe we'll do that for the management system also, so there is consistency there, like you're saying, and then this panel is...
+
+Balakrishna Narayanan   3:18
+Correct.
+
+Adit Kohli   3:28
+print for a guest versus a lead. So the lead will show the lead details like we have on the LMS, but.
+in the real estate that is available on Hyperconnect and then the guest will remain the guest profile that is already there in Hyperconnect. So those are the only changes that I could think of. Tell me if you have anything else in mind.
+
+Balakrishna Narayanan   3:49
+So, let's break it down scenario-wise, right? So, let's say a lead comes in into Hyperconnect via voicemail smart bot which we hold. It's a brand new phone number.
+So that will be this view that I'm seeing right now, right?
+
+Adit Kohli   4:01
+Hmm.
+Right.
+
+Balakrishna Narayanan   4:06
+And then now that that lead gets converted to a guest, like lead gets pushed into lead management system.
+
+Adit Kohli   4:13
+Mm.
+
+Balakrishna Narayanan   4:13
+Lead management system.
+
+Adit Kohli   4:17
+Baig.
+
+Balakrishna Narayanan   4:18
+Right, and now there is, uh, let's say I have a conversation with this lead because I'm providing two-way communication.
+And, uh, the lead whole conversation technically.
+
+Adit Kohli   4:35
+Yes, same conversation that we lead management system.
+
+Balakrishna Narayanan   4:41
+OK, now that conversation appointment booked, actually.
+
+Adit Kohli   4:42
+Yeah.
+The one thing that we have not shown here, which is an open point, I think this is what you alluded to in your chat also was there is there are these lead management specific events like a task that were that were visible in the lead management timeline that, but we have not added them here, so...
+
+Balakrishna Narayanan   5:01
+Ohh.
+
+Adit Kohli   5:09
+Are we going to have all events available in both the systems?
+
+Balakrishna Narayanan   5:14
+That's, yeah, that is what, I mean, I'm not saying it should, like...
+I don't want to overcrowd hyperconnect with all the events, but I should have a very easy way to just.
+Like, pull those events out, like, for example, and when example they talk, I be a leader and lead management against event side lead management timeline.
+But Abhi musko idarlana doesn't make sense.
+
+Adit Kohli   5:46
+Ohh.
+
+Balakrishna Narayanan   5:47
+Because then it'll be so.
+How can we easily invoke?
+That entire timeline here is.
+What the dilemma, like how do we achieve it is what the question was. So Teja point was.
+Just keep the same timeline view across both.
+
+Adit Kohli   6:06
+Mhm.
+
+Balakrishna Narayanan   6:09
+Um, I let it continue, give a lead other guess, maybe convert, yeah.
+
+Adit Kohli   6:14
+Mm.
+
+Balakrishna Narayanan   6:14
+Okay, well, like, will continue.
+Sorry, even in Chicago.
+
+Adit Kohli   6:20
+Yeah, OK. The one question I had was, so some assume that Anna Duke is a guest, but then when Anna Duke creates a new opportunity for herself regarding a different treatment than than what she has taken in the past, now will she be shown as a guest or will she be now qualified as a lead?
+
+Balakrishna Narayanan   6:22
+Oh, simple.
+
+Adit Kohli   6:40
+Through this indicator.
+And the second question was, when we do click on Anurag Duke, because she's a guest, we'll show a guest profile. So where will we show the lead details?
+
+Balakrishna Narayanan   6:55
+Ohh.
+
+Adit Kohli   6:55
+That is not resolved even in my head, so I thought I'll just pick your billions on this.
+
+Balakrishna Narayanan   7:06
+Ayush.
+
+Adit Kohli   7:06
+You know, you know, guest, those are very like just some awkward use cases, guest, guest, we retain, and then lead, but then multiple leads, so all that is not resolved as far as hyperconnect is concerned.
+
+Balakrishna Narayanan   7:23
+So, so I mean, Anurag you can, I thought there was some sub some points or something as any other.
+Like, ask a hyperconnect one.
+
+Adit Kohli   7:32
+On the left panel.
+
+Balakrishna Narayanan   7:35
+Ohh.
+
+Adit Kohli   7:37
+This is a new thing that we've added.
+
+Balakrishna Narayanan   7:44
+Okay.
+Because then, under Anurag, there should be some some way to indicate that these many leads were created for her.
+Then I can click on.
+
+Adit Kohli   7:58
+The other difference, the other difference, sorry, I'm cutting you into the other difference between LMS and Hyperconnect will be that if Alert Duke has two leads.
+running in parallel, then both those leads will have two different timelines in LMS, but will be consolidated into one timeline here in Hyperconnect, right?
+We are showing leads here, we are showing people.
+It will be sort of confusing.
+
+Balakrishna Narayanan   8:27
+No, I mean, no timeline to consolidated.
+
+Adit Kohli   8:31
+You have to do anything you can get.
+
+Balakrishna Narayanan   8:31
+That's what it.
+Hey, Anna, do you can do something like it should it should collapse.
+Like, it should be like a tree model, bullet points each of them is one lead, and that lead shows up here.
+Don't matter.
+
+Adit Kohli   8:55
+Anand, you key under tree here, and then you show all the different leads, so you...
+
+Balakrishna Narayanan   9:01
+Either have Adapa Adapa clicker, then your timeline should show everything, including something like new lead created, new lead created, that timeline again. And as it was new lead created, when I click here, then it should open up the sub pane below Anurag and open up that timeline, which is specific to that lead for Anurag.
+
+Adit Kohli   9:09
+Ohh.
+But then that definition can be carried over to the LMS also, no?
+Anurag.
+Yeah, baby, if you go back to element.
+
+Balakrishna Narayanan   9:26
+That definition, LMS, LMS, individual leads.
+
+Adit Kohli   9:32
+Sophia Williams.
+
+Balakrishna Narayanan   9:38
+Actually, that between model Kachapuram.
+
+Adit Kohli   9:40
+Yeah, you said.
+
+Balakrishna Narayanan   9:41
+Ohh.
+Well, I think that will be a cleaner interface, no?
+Isn't that better?
+
+Adit Kohli   9:53
+But I've got a guest timeline or do leads timeline.
+
+Balakrishna Narayanan   9:53
+Yes.
+
+Adit Kohli   9:59
+And we continue to maintain this even when a lead has like been converted into an into an appointment, then that timeline remains forever, that distinct timeline, or it gets merged with the guest now.
+
+Balakrishna Narayanan   10:21
+No, but how can we merge it against the lead? I mean, still, it was always a lead.
+So, Anurag, Anurag is on the call. Can you go back to the previous Anurag? What we are discussing is...
+
+Anurag Chaudhary   10:34
+Mmh.
+
+Adit Kohli   10:34
+Go back here.
+
+Balakrishna Narayanan   10:36
+Go back to the hyper, hyperconnect, hyperconnect.
+
+Adit Kohli   10:40
+Okay, hyperconnect.
+
+Balakrishna Narayanan   10:41
+Jo.
+But actually, you discussed that.
+
+Adit Kohli   10:46
+So.
+
+Balakrishna Narayanan   10:47
+Ohh.
+
+Adit Kohli   10:49
+Anurag, go ahead and be good.
+
+Balakrishna Narayanan   10:49
+Anurag.
+So, one thing we are discussing here is the two-way communication, right? So, and I think the call also, I was telling Adit, just keep it consistent with hyper connect, or maybe that goes in the centre section on top, right? And I think AI calling also should, so maybe AI calling should be a...
+
+Anurag Chaudhary   10:56
+Mm.
+Hmm, Teja.
+Yeah.
+
+Balakrishna Narayanan   11:13
+drop down of the call, like I think call is 1 where you're doing manually, second is AI.
+
+Anurag Chaudhary   11:19
+No, but what will you do with AI? I will call whenever it's the right time, no? We should.
+
+Balakrishna Narayanan   11:24
+No, no, if you want to schedule a AI call, you have to schedule it now with certain prompts. So you have to schedule with certain prompts and some context.
+
+Anurag Chaudhary   11:26
+Okay, schedule is the only thing, yeah.
+
+Adit Kohli   11:31
+So, this is will this function come in Hyperconnect also Anurag that they can schedule an AI call from Hyperconnect also?
+
+Anurag Chaudhary   11:38
+No no no no no no.
+
+Adit Kohli   11:40
+No, there is no such.
+
+Anurag Chaudhary   11:40
+That, that's that's very specific to lead management.
+
+Adit Kohli   11:44
+But this function will be when Hyperconnect starts showing leads, which is what we are going to get to right after this interface. So this functionality will only be for leads and not for guests.
+
+Anurag Chaudhary   11:48
+Mm.
+Mm.
+I would guess so, as of now.
+
+Balakrishna Narayanan   11:58
+Why won't we call? Why won't you schedule some AI calls for guests?
+
+Anurag Chaudhary   11:59
+It, it might come.
+
+Adit Kohli   12:01
+Ohh.
+No, no.
+
+Balakrishna Narayanan   12:04
+No, no.
+
+Anurag Chaudhary   12:06
+Yeah.
+Yeah, I think it might come to Hyper Connect also. It makes sense there also.
+
+Adit Kohli   12:12
+And...
+
+Anurag Chaudhary   12:16
+Yeah.
+Because it from hyper connect perspective, it could be like you are just scheduling calls. It's not like you have to schedule call for a given time. You can just give say that AR can make parallel calls, right? If you tell it to make all the calls at 730, it can make 100 calls at 730.
+
+Adit Kohli   12:34
+Correct.
+
+Anurag Chaudhary   12:34
+So there might be a different setting in the setting page where we say that, okay, according to this region, only call between 7.30 to 7, say 9 A.m. to 5 or 4.30 P.m. That's it. Those kind of settings might also come where AR chooses when to call, when to segregate the wall, but it might come here also.
+That's OK, but then you will do it one by one for each and every leader.
+
+Adit Kohli   12:55
+I think there are already, I was speaking to Priyanka about this, so I think they are also governed by certain state level rules that AI are only called around business hours and so on and so forth, right? So we are creating an interface where at least for now they are only supporting appointment follow up as an outbound call interface use case.
+
+Anurag Chaudhary   13:02
+Yes, yes, that will come.
+Exactly.
+Yeah.
+Yeah.
+
+Adit Kohli   13:15
+So appointment follow-up may they can select one or multiple guests and then trigger an AI follow-up call to them and then those rules will dictate when the call goes out.
+
+Anurag Chaudhary   13:17
+Yeah.
+Yes.
+
+Adit Kohli   13:25
+Right.
+Okay, coming back to this, so like Vikram was saying, one, the couple of changes is this component is now standardised and works exactly like it works on Hyper Connect and the call.
+
+Anurag Chaudhary   13:37
+Yeah, Teja will show us a demo a little late today. This is componentized now.
+
+Adit Kohli   13:43
+Oh, they have already implemented it.
+
+Anurag Chaudhary   13:45
+Yeah.
+
+Adit Kohli   13:46
+OK, great, and then this these calls have to be moved on to the top, and then this thing will become similar to Hyperconite, so Arvind, this is.
+
+Anurag Chaudhary   13:51
+Yeah, so.
+Yeah, I think we will not have a dialer in here as of now, BK.
+So, because you always will be responding to a lead, which means you already have a phone number or something, but we, let's see, will we need dialer here?
+
+Balakrishna Narayanan   14:10
+Where on the right side of the call, Balla?
+
+Anurag Chaudhary   14:12
+I mean, if you have to dial a fresh number which is not there here, like in any guest.
+
+Balakrishna Narayanan   14:16
+No, no, but can I can dial this phone right?
+
+Anurag Chaudhary   14:19
+You select this phone number, you select this guest or lead and just press the call button.
+
+Balakrishna Narayanan   14:24
+Aha, we don't need a dialer. No, no, no.
+
+Anurag Chaudhary   14:26
+Dial is 123 alarm.
+
+Adit Kohli   14:28
+You can just find any guest any of this thing, but that we are not supporting in LMS, no.
+
+Anurag Chaudhary   14:30
+Yeah, if need, we will bring it, but not today, or if we will.
+
+Adit Kohli   14:34
+OK, not good.
+
+Balakrishna Narayanan   14:35
+I mean, first version of Agharia, but...
+We can do it later.
+
+Anurag Chaudhary   14:39
+Teja.
+
+Adit Kohli   14:39
+But then, then LMS said, "Low, then right, because then you'll open up everything."
+
+Anurag Chaudhary   14:43
+Random, random dialing.
+
+Balakrishna Narayanan   14:46
+Cool.
+
+Adit Kohli   14:46
+Hey, but you will open up the entire guestbook, right?
+
+Anurag Chaudhary   14:51
+Yeah, open. You have to select a lead on the left hand side and whatever is the phone number is associated with that lead, click the dial button or call button and just done. That's the outgoing call.
+
+Adit Kohli   14:51
+Let me.
+No, no, I'm talking about when you bring in the dialer, then that would mean that you can dial up anybody from the lead management system.
+
+Anurag Chaudhary   15:04
+Up.
+Right now you can do it from hyper connector.
+
+Balakrishna Narayanan   15:11
+Yeah.
+
+Adit Kohli   15:12
+Yeah, okay.
+So, anything else on this, or we should do the hyperconnect interface?
+
+Balakrishna Narayanan   15:19
+Uh...
+No, I think that's good.
+
+Adit Kohli   15:21
+It is one more thing was there.
+
+Anurag Chaudhary   15:24
+So one thing we have to think, and perhaps it is in context of Hyperconnect interface, when this number shows up in Hyperconnect, we have to mark it as a lead so that, so basically Adit will be storing it as guest indicator only. But because code does not understand these new indicators, it will not show anywhere. We just figure out how to show it in Hyperconnect. I think it's very specific that leads indicator will only show up in.
+Hyperconnect and not in core.
+
+Adit Kohli   15:51
+Correct.
+
+Balakrishna Narayanan   15:51
+Anurag, Anurag, but I think what they are doing is they are creating a guest for every new lead that is coming in.
+
+Anurag Chaudhary   15:52
+Singh.
+No, just you add an indicator that it is a leader as of now.
+
+Balakrishna Narayanan   16:01
+Ha ha ha, what a hyper-connect bag.
+
+Anurag Chaudhary   16:03
+Up.
+And when this guest is convert, this lead is converted, it's no more a lead. You're closing the lead, just remove the indicator.
+
+Adit Kohli   16:05
+Okay.
+Yeah.
+
+Anurag Chaudhary   16:16
+So, I'll talk to my team on that.
+
+Adit Kohli   16:16
+Baig.
+Yeah.
+So, the other thing BK and I were discussing was that BK was proposing that all events that are unique to LMS, like this one, which is a task on a lead, should also be displayed on Hyperconnect timeline. So the events are common between LMS and Hyperconnect, for leads at least.
+
+Anurag Chaudhary   16:29
+Mm.
+Lee.
+Mm.
+Okay.
+
+Balakrishna Narayanan   16:45
+Yeah.
+
+Anurag Chaudhary   16:47
+Right, see, it's always between two, right? Whether you want lesser switches or you want to convolute the purpose of each and every tool.
+Which aim takes the higher priority?
+
+Balakrishna Narayanan   16:57
+Hey, so...
+Yeah, I mean, which is obviously high priority, but Sophia Williams is a guest, but now she has two leads against her: one is to purchase a package, second is to purchase a membership as an example.
+
+Anurag Chaudhary   17:10
+Mm.
+No.
+
+Balakrishna Narayanan   17:18
+So would that be like a nested, like a tree model where Sophia Williams is on top and then you have two leads created under her and then each of those leads will have its own timeline view.
+
+Anurag Chaudhary   17:31
+Mm.
+
+Balakrishna Narayanan   17:33
+Or will it be too confusing, O.M. So, Chaudhary?
+
+Anurag Chaudhary   17:36
+If you consider them as two leads on the left hand side, which is also a logical way of doing it, communication that happened in context of this lead and that lead, will you segregate it?
+
+Balakrishna Narayanan   17:51
+We have to now, but the problem is, like, Sophia Williams, Sophia Williams.
+Yeah, that's the problem.
+
+Anurag Chaudhary   18:00
+And the guest, even the users will ask you, even the users will ask us, why to Sophia Williams?
+
+Adit Kohli   18:01
+Yeah, but the way it is built right now, the beginner way.
+
+Balakrishna Narayanan   18:09
+Yeah.
+
+Adit Kohli   18:10
+No, but it's like an inbox now, Anurag, because if you have received two, if I have received two different emails from you, those are running their own respective threads, no? This is not WhatsApp, right?
+
+Anurag Chaudhary   18:11
+Mm.
+Mm.
+So, but Adit, that that that's what your you are looking at it as inbox.
+
+Adit Kohli   18:28
+This is the paradigm currently, at least, yeah, no.
+
+Anurag Chaudhary   18:30
+Yeah, it's your paradigm. You have explained it to me.
+
+Adit Kohli   18:34
+Ohh.
+
+Anurag Chaudhary   18:36
+Then they will open Hyperconnect, which will look similar, but the paradigm will be different.
+
+Adit Kohli   18:42
+Yeah, and then real fun starts when, ohh, sorry, I should not have shipped it when the real fun starts in hyperconnect, I'll ship to that interface.
+
+Balakrishna Narayanan   18:46
+But.
+
+Anurag Chaudhary   18:46
+Yeah.
+You.
+
+Adit Kohli   18:52
+It is Kohli.
+
+Anurag Chaudhary   18:55
+We had to patch on see, which which interface is which.
+
+Adit Kohli   18:56
+Thank you.
+I mean, so, so, yeah, Anna Duke is a regular guest for the last two years, and now she has created a new opportunity for herself for a Botox treatment. Abhi lead one week, right, because she's she has an active, but she already is maintaining A two-year timeline. Abhi lead is a one-week old timeline. Does she does it does that get merged with the two-year-old timeline?
+
+Anurag Chaudhary   19:07
+Oh.
+Yes.
+
+Adit Kohli   19:19
+Or is that a distinct timeline?
+
+Anurag Chaudhary   19:19
+It has in hyper connect it will in hyper connect one guest is 1 guest.
+
+Adit Kohli   19:24
+Yeah, there is not restructure then.
+
+Anurag Chaudhary   19:27
+Yeah, I will not show 2 and a dukes here.
+
+Balakrishna Narayanan   19:29
+No, you launched. See, one thing is if lead slash opportunity and against lead here and against you put saying lead again.
+
+Anurag Chaudhary   19:36
+Mm.
+Yes.
+
+Balakrishna Narayanan   19:40
+But there are two ways: one is we can say, "Jessimine Anurag click here on her timeline view, we should have something called as new lead creator, new lead creator click here so easy interface lead management timeline view everything should come up."
+
+Anurag Chaudhary   19:46
+Mm.
+
+Balakrishna Narayanan   20:00
+So that I am all in hyperconnect.
+
+Anurag Chaudhary   20:00
+You want you want it that way? You want it that way? Or should I say that, okay, there is a like there are events for Anna Duke, right? She might have taken a service or left some feedback or something. Similarly, she asked for something which due to which you considered her a lead and we can show a lead event here.
+
+Balakrishna Narayanan   20:10
+Hold on, hold on.
+Ohh.
+That's fine, lead even Deka, that is fine, which means a new lead, which means a lead was created, correct?
+
+Anurag Chaudhary   20:25
+Mm.
+Yes.
+
+Balakrishna Narayanan   20:28
+Huh, so lead, like Anand, you like say membership conversion lead, but I am in a potential membership, huh?
+
+Adit Kohli   20:37
+You see, if you have this right view, this right view, no, this is a lead view, but if Anurag is a guest, Anurag, when you click on Anurag, you will see the guest profile, you will not see this view. So, how does this view come?
+
+Anurag Chaudhary   20:37
+Mm.
+
+Balakrishna Narayanan   20:41
+Huh?
+Correct. Correct.
+
+Anurag Chaudhary   20:49
+But I have to select the lead event. I have to click on the lead event in the middle to see the lead detail. And if I have to go to detail of this detail of everything, then I might click it and open the lead management and take directly to that lead.
+
+Balakrishna Narayanan   20:53
+Ha.
+Correct.
+Bhatt.
+
+Adit Kohli   21:04
+Lead event lead created discussion, so we expect.
+
+Balakrishna Narayanan   21:16
+What the philtre I add is a lead management philtres in a can't see event co philtre Koneru no filtered although.
+
+Anurag Chaudhary   21:21
+Centre timeline.
+
+Balakrishna Narayanan   21:26
+Then, if I, if I, if I philtre on lead events on this timeline view, I should get leads.
+
+Anurag Chaudhary   21:35
+Mm.
+Adit, left hand filter.
+
+Adit Kohli   21:42
+Ohh.
+
+Anurag Chaudhary   21:43
+If I just select leads, maybe I'll philtre two things.
+
+Adit Kohli   21:45
+Ohh.
+
+Anurag Chaudhary   21:48
+I'll philtre the left list also, and in the middle I'll only show lead events.
+Will that make sense?
+
+Adit Kohli   21:59
+Huh?
+But assuming people will not do that, because if they wanted to do that, they would just switch to the LMS, no? If they want to just deal with leads.
+Because that is what the separate module is designed for, just to deal with leads.
+
+Anurag Chaudhary   22:14
+Yeah.
+
+Adit Kohli   22:15
+Then we both, I mean, then we won't even, you know, again, I mean, there is this feature, but also, like this task was created, right? We showed this task, this task is not associated to a guest, this task is associated to a lead. Now, clicking on this also should come, should open up the lead detail then.
+
+Anurag Chaudhary   22:32
+Your lead, I know, yeah.
+
+Balakrishna Narayanan   22:32
+Ohh.
+
+Adit Kohli   22:37
+Every lead lead specific tasks.
+
+Anurag Chaudhary   22:42
+Then this lead management interface will lose the complete value. I mean, then it is just about configure. It will be left or about just configuration. You lead cut tree, another just be done with it, right? Then everything is showing up in Hyper Connect.
+
+Adit Kohli   22:58
+I reckon they come.
+
+Balakrishna Narayanan   23:00
+Hey, if you're hyper-connect, everything is showing up then.
+
+Anurag Chaudhary   23:05
+If I can bring him for some details, we have to show, like, if they have to do something on this lead, then they have to come to lead management.
+
+Adit Kohli   23:17
+Yeah, so the call, if you look at this, this is lead arrangement if I switch to hyper connect.
+This task will not show up there because this design was built in a way that lead specific events will not even come in hyperconnect. So that task event is not showing up here. Only the messages are showing up here. So is this the direction we want to go then? That lead specific events will not show up here.
+
+Anurag Chaudhary   23:23
+Eat me.
+Mm.
+Hmm.
+I think so.
+
+Balakrishna Narayanan   23:45
+Yeah, I think I was thinking, like Anurag.
+
+Anurag Chaudhary   23:49
+Yeah, but basically, you can only act upon it here in lead management.
+
+Adit Kohli   23:56
+So then you don't even need the tree then, right, BK? Then it's just a flat list of your events and messages. And it doesn't matter whether this message was sent in the context of lead A or lead B that you worry about in the lead management system.
+
+Balakrishna Narayanan   24:07
+OK, let me OK, let me let me talk about this, right? Anand, let's talk about Anurag, who's a new guest, who's an existing guest, Shikha, and conversation, you know, appointment.
+
+Anurag Chaudhary   24:08
+Ohh.
+
+Adit Kohli   24:18
+Mhm.
+
+Balakrishna Narayanan   24:28
+For example.
+Yeah, so I decided to go ahead and create a lead for Anurag.
+Okay, lead time membership.
+Now, technically, Anurag Duke against a lead tag, and when I click on Anurag Duke, somewhere easily I should be able to show that a new lead was created against Anurag Duke.
+Okay, now when I want to now continue my conversation with Anurag Duke or nurture that lead and all, and if there are any other notes and tasks, I should be able to click on that new lead and that should show up the lead management interface.
+
+Anurag Chaudhary   25:04
+Okay.
+
+Adit Kohli   25:13
+Now the lead management interface, does the lead details part of it or the entire lead management interface, this interface you're saying? So somebody can toggle from this interface to this interface.
+
+Balakrishna Narayanan   25:25
+I mean, that's what I'm thinking, right? Because the context of the leader now, because see, I can have three leads against Anand Duke.
+But only one of them closed, the other two did not close.
+Why would I put all that in hyperconnect?
+
+Anurag Chaudhary   25:38
+Mm.
+
+Adit Kohli   25:40
+Correct.
+
+Anurag Chaudhary   25:42
+Yeah.
+
+Balakrishna Narayanan   25:44
+Right, I would rather just put it here, but we want to make sure, like, if you are able to invoke somehow this timeline view, this details view over there.
+Or it is so seamless key click at the either Agharia like I said you put a load or and all so that's what.
+
+Anurag Chaudhary   26:08
+Aaat to gaya lagin vapis kasi jayegavir bahin pe jaan tha.
+
+Adit Kohli   26:11
+Ohh.
+
+Anurag Chaudhary   26:13
+What gesture will be there to go back?
+
+Adit Kohli   26:13
+Ohh, too.
+
+Anurag Chaudhary   26:17
+I got a app open, it will be easy to go back.
+
+Balakrishna Narayanan   26:20
+****.
+Ohh.
+
+Anurag Chaudhary   26:27
+Or, if the if the person has both lead management and hyper connect, then lead management has a major lead management timeline is hyper connect as a different.
+This left-hand side thing.
+That could be one way. I mean, lead management will be pure lead management, but if Hyperconnect is also there, Hyperconnect will also show this lead management screen.
+
+Balakrishna Narayanan   26:53
+The.
+
+Anurag Chaudhary   26:54
+Just this one, communication only.
+
+Adit Kohli   26:58
+One, sir, middle one.
+
+Balakrishna Narayanan   26:58
+Oh.
+
+Anurag Chaudhary   27:00
+Some good.
+
+Balakrishna Narayanan   27:01
+Kulbhushan.
+
+Anurag Chaudhary   27:03
+I say, just left me a icon select. We are seeing lead details as well. This icon will go to hyper can go to hyper connect completely.
+
+Adit Kohli   27:12
+No, I am not understanding it.
+
+Anurag Chaudhary   27:13
+So, Teja, I think I'm adding that we have like tonne of options.
+Hey, overlay simple, Adit, but do we have a concept of overlay in any other place, like one app overlaying another app thing?
+
+Adit Kohli   27:30
+No, but you will only overlay certain elements of the screen, right? For instance, does the lead detail panel can can be overlaid on top of a guest profile? That is the only thing, right? You can't just overlay the entire module on top of each other.
+
+Anurag Chaudhary   27:31
+You don't right?
+Mm.
+Not like.
+Yeah.
+
+Balakrishna Narayanan   27:49
+Yeah, I mean, sorry, left pane, that should be consistent, that should just be a guest view or a lead, like the phone number, that should change based on if you are talking to a guest or if you're talking to a lead.
+
+Anurag Chaudhary   27:50
+Yeah.
+Mm.
+
+Balakrishna Narayanan   28:09
+The only dilemma is what if guest is also a lead?
+Then we should have a lead view of the guest.
+I don't know how to get there. That's what I'm, that's why I was thinking maybe there is a link which says new lead created and then whole link, whatever you just click on that, it just opens up the sync interface, what you're showing on the screen.
+
+Anurag Chaudhary   28:22
+Yeah.
+You?
+
+Adit Kohli   28:31
+Yeah, this concept of multiple leads associated to a guest only applies to somebody who's already a guest, right? If it's a number, then in all likelihood you'll...
+
+Anurag Chaudhary   28:39
+No, no, number Facebook, and then he left a voicemail.
+Separate voicemail.
+And if I look at it, maybe the campaign Facebook campaign was about some membership, maybe the inquiry was some was about some service.
+
+Adit Kohli   28:52
+Mm.
+
+Balakrishna Narayanan   29:00
+Ohh.
+
+Anurag Chaudhary   29:01
+So, I'm actually expendable, what B.K. said, if it's possible in some way, like numbers, plus 1407, if it has multiple leads associated, perhaps it has some sort of indicator, like it's expendable, and then I see that, okay, there are two leads, and then I can click and see what happened.
+
+Balakrishna Narayanan   29:03
+T.
+
+Anurag Chaudhary   29:22
+corresponding to that lead, but in hyperconnect I'll show the full communication.
+
+Adit Kohli   29:28
+Without.
+
+Anurag Chaudhary   29:29
+Or full everything, you can even show tasks, but we will not be able to differentiate in HyperConnect about lead. We should not do it then, because then lead management is screening a value.
+
+Adit Kohli   29:31
+We get children.
+So, if you are, let me repeat, say it back to you, so I understand what you're proposing. Again, 407 leads, they are, there is a way for you to see lead one and lead two, each will have its own activity timeline and its respective detail, and the lead one and lead two will be merged.
+
+Balakrishna Narayanan   29:40
+Parkal.
+
+Anurag Chaudhary   29:41
+Yeah.
+Mm.
+**, right?
+Yes.
+Yes.
+
+Adit Kohli   29:59
+Into 1 consolidated timeline in Hyper Connect, which means...
+
+Anurag Chaudhary   30:02
+Even, even, even here, even here, if I select the number top level, I'll see everything. So, basically, when you select the lead under the expanded view, it is kind of a filter.
+Nakkala.
+
+Adit Kohli   30:16
+Ohh, OK, so yeah, maybe consolidate or filter.
+
+Anurag Chaudhary   30:18
+Okay, so exactly now, now if you select the phone number here, you will see everything what you can also see in Hyper Connect.
+Right, it will have exactly the same set of activities what will be shown in Hyper Connect, but you will be able to see lead-wise activities only here by selecting that lead under that guest, you know, expendable.
+
+Adit Kohli   30:30
+Who?
+
+Anurag Chaudhary   30:44
+form or something.
+
+Balakrishna Narayanan   30:48
+What happens in the lead management view then?
+
+Anurag Chaudhary   30:51
+Yeah, lead management.
+
+Balakrishna Narayanan   30:53
+No, no, no, Sophia Williams phone number.
+
+Anurag Chaudhary   30:59
+Huh, so those source after those leads I and say they were none of them, both of them survived your deduplication, basically they were genuine leads.
+
+Balakrishna Narayanan   31:07
+Huh?
+
+Anurag Chaudhary   31:08
+You expand 407 or Sophia Williams or whosoever, you will see lead one and lead two. OK.
+
+Balakrishna Narayanan   31:15
+Ohh.
+
+Anurag Chaudhary   31:16
+If you select Sophia Williams.
+Then you will see everything that has happened. Task one was for lead one, task two were for lead two. You will see task one and task two. But if you select lead one, then you will only see task one. If you select lead two, then you will only see task two.
+
+Balakrishna Narayanan   31:25
+Correct.
+Correct.
+
+Adit Kohli   31:32
+Mm.
+
+Anurag Chaudhary   31:32
+OK, so now the good thing is that if you select Sophia Williams here, you will see task one, task two, SMS, voicemail, and everything, and when you go to Hyperconnect and select Sophia Williams, you will see the same thing, so that confusion will go away, but here you will have some additional information.
+
+Balakrishna Narayanan   31:46
+Correct, correct.
+Ha, agree.
+
+Anurag Chaudhary   31:56
+I have a meeting to run to some customer issue.
+
+Balakrishna Narayanan   31:59
+Okay.
+Ah, ticket, ticket, Adit, Adit, do you think you can take a stab at this quickly and then see?
+
+Anurag Chaudhary   32:02
+Yeah, thank you.
+
+Adit Kohli   32:02
+Okay.
+
+Balakrishna Narayanan   32:08
+Or to look.
+
+Adit Kohli   32:09
+So should we just do it in one first and then apply? If it works, then we apply.
+
+Balakrishna Narayanan   32:13
+Yeah, yeah, yeah, yeah, yeah, yeah.
+
+Adit Kohli   32:15
+You can, and I'll get back to you guys then once we.
+
+Balakrishna Narayanan   32:17
+Okay, okay, cool, okay, and also.
+
+Adit Kohli   32:23
+Call setup Kothur.
+
+Balakrishna Narayanan   32:26
+Okay.
+
+Adit Kohli   32:27
+Bye, guys.
+
+Balakrishna Narayanan   32:28
+Excellent, bye.
+
+Balakrishna Narayanan stopped transcription

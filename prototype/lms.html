@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Lead Manager — Zenoti</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/lms.css">
+</head>
+<body>
+<div class="lms-app">
+  <!-- Sidebar -->
+  <nav class="lms-sidebar">
+    <div class="lms-sidebar-icon" title="Search">&#128269;</div>
+    <div class="lms-sidebar-icon" title="Home">&#127968;</div>
+    <div class="lms-sidebar-icon" title="Contacts">&#128101;</div>
+    <div class="lms-sidebar-icon" title="Calls">&#128222;</div>
+    <div class="lms-sidebar-icon active" title="Leads">&#128188;</div>
+    <div class="lms-sidebar-icon" title="Calendar">&#128197;</div>
+    <div class="lms-sidebar-icon" title="Messages">&#128172;</div>
+    <div class="lms-sidebar-icon" title="Reports">&#128202;</div>
+    <div style="flex:1"></div>
+    <div class="lms-sidebar-icon" title="Settings">&#9881;</div>
+  </nav>
+
+  <!-- Main -->
+  <div class="lms-main">
+    <!-- Top Bar -->
+    <div class="lms-topbar">
+      <div class="lms-topbar-left">
+        <button class="back-btn" onclick="window.location.href='index.html'">&#8592;</button>
+        <span class="lms-topbar-title">Lead details</span>
+      </div>
+      <div class="lms-topbar-center">
+        <span style="font-size:12px;color:#6b7689">Beuforce &ndash; Albertville</span>
+      </div>
+      <div class="lms-topbar-right">
+        <select style="padding:6px 10px;border:1px solid #e0e4ea;border-radius:6px;font-size:13px">
+          <option>Albertville</option>
+          <option>South Granville</option>
+        </select>
+        <button class="lms-add-lead-btn" onclick="showToast('Add new lead form would open', 'info')">+ Add new lead</button>
+        <div class="avatar avatar-blue" style="width:32px;height:32px;font-size:12px">SJ</div>
+      </div>
+    </div>
+    <div class="lms-breadcrumb">All leads &rsaquo; Lead details</div>
+
+    <!-- Content: 3 Panels -->
+    <div class="lms-content">
+
+      <!-- LEFT PANEL: Lead List -->
+      <div class="lms-left-panel">
+        <div class="lms-search">
+          <input type="text" placeholder="Search leads..." id="leadSearch">
+        </div>
+        <div class="lms-lead-list" id="leadList">
+          <!-- Lead 1: Person with 2 leads (tree) -->
+          <div class="lead-item selected" data-person="phone1" onclick="selectPerson(this, 'phone1')">
+            <div class="avatar avatar-blue">
+              <span>+1</span>
+            </div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">
+                +1 (407) 203-8926
+                <span class="badge badge-lead" style="font-size:10px">2 Leads</span>
+                <span class="expand-chevron" onclick="event.stopPropagation(); toggleExpand('phone1')">&#9656;</span>
+              </div>
+              <div class="lead-item-status">AI call completed, Positive response.</div>
+            </div>
+          </div>
+          <div class="lead-children" id="children-phone1">
+            <div class="lead-child-item" data-lead="membership" onclick="selectLead(this, 'membership')">
+              <span class="lead-child-icon">&#128188;</span>
+              <span class="lead-child-name">Membership Lead</span>
+              <span class="badge badge-info" style="font-size:10px">AI call done</span>
+            </div>
+            <div class="lead-child-item" data-lead="botox" onclick="selectLead(this, 'botox')">
+              <span class="lead-child-icon">&#128137;</span>
+              <span class="lead-child-name">Botox Treatment Lead</span>
+              <span class="badge badge-success" style="font-size:10px">Follow up done</span>
+            </div>
+          </div>
+
+          <!-- Lead 2 -->
+          <div class="lead-item" data-person="sophia" onclick="selectPerson(this, 'sophia')">
+            <div class="avatar avatar-green">SW</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Sophia Williams</div>
+              <div class="lead-item-status">Follow up call completed</div>
+            </div>
+          </div>
+
+          <!-- Lead 3 -->
+          <div class="lead-item" data-person="olivia" onclick="selectPerson(this, 'olivia')">
+            <div class="avatar avatar-orange">OG</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Olivia Garcia</div>
+              <div class="lead-item-status">Appointment no show</div>
+            </div>
+          </div>
+
+          <!-- Lead 4 -->
+          <div class="lead-item" data-person="liam" onclick="selectPerson(this, 'liam')">
+            <div class="avatar avatar-purple">LM</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Liam Martinez</div>
+              <div class="lead-item-status">Please follow up with this member</div>
+            </div>
+          </div>
+
+          <!-- Lead 5 -->
+          <div class="lead-item" data-person="ava" onclick="selectPerson(this, 'ava')">
+            <div class="avatar avatar-red">AD</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Ava Davis</div>
+              <div class="lead-item-status">Lead is lost</div>
+            </div>
+          </div>
+
+          <!-- Lead 6 -->
+          <div class="lead-item" data-person="michael" onclick="selectPerson(this, 'michael')">
+            <div class="avatar avatar-indigo">MS</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Michael Smith</div>
+              <div class="lead-item-status">"Face laser" upgraded "Full body las...</div>
+            </div>
+          </div>
+
+          <!-- Lead 7 -->
+          <div class="lead-item" data-person="james" onclick="selectPerson(this, 'james')">
+            <div class="avatar avatar-teal">JB</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">James Brown</div>
+              <div class="lead-item-status">No response to AI call from lead</div>
+            </div>
+          </div>
+
+          <!-- Lead 8 -->
+          <div class="lead-item" data-person="noah" onclick="selectPerson(this, 'noah')">
+            <div class="avatar avatar-green">NR</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Noah Rodriguez</div>
+              <div class="lead-item-status">Won, Lead converted</div>
+            </div>
+          </div>
+
+          <!-- Lead 9 -->
+          <div class="lead-item" data-person="sam" onclick="selectPerson(this, 'sam')">
+            <div class="avatar avatar-orange">SW</div>
+            <div class="lead-item-content">
+              <div class="lead-item-name">Sam Wilson</div>
+              <div class="lead-item-status">Call disconnected on AI call from lead</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER PANEL: Activities Timeline -->
+      <div class="lms-center-panel">
+        <div class="lms-activities-header">
+          <span class="lms-activities-title" id="activitiesTitle">Activities</span>
+          <div class="lms-activities-controls">
+            <select class="lms-filter-select" id="eventFilter" onchange="filterEvents()">
+              <option value="all">All events</option>
+              <option value="sms">Messages</option>
+              <option value="call">Calls</option>
+              <option value="task">Tasks</option>
+              <option value="note">Notes</option>
+              <option value="lead">Lead Events</option>
+            </select>
+            <button class="lms-purchase-btn" onclick="showToast('Purchase history panel would open', 'info')">Purchase history</button>
+          </div>
+        </div>
+
+        <div class="lms-timeline" id="timeline">
+          <!-- SMS Outbound -->
+          <div class="timeline-event" data-type="sms" data-lead="membership">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-sms">&#9993;</div>
+                <span class="event-label">SMS</span>
+                <span class="badge badge-info" style="font-size:10px">Outbound</span>
+              </div>
+              <span class="event-time">Sarah Johnson &middot; 9:40 am</span>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+              <div class="sms-outbound">...and any more offer pricing you can provide?</div>
+            </div>
+            <div style="display:flex;justify-content:flex-end">
+              <div class="sms-outbound">Thanks!</div>
+            </div>
+          </div>
+
+          <!-- SMS Outbound 2 -->
+          <div class="timeline-event" data-type="sms" data-lead="membership">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-sms">&#9993;</div>
+                <span class="event-label">SMS</span>
+                <span class="badge badge-info" style="font-size:10px">Outbound</span>
+              </div>
+              <span class="event-time">Sarah Johnson &middot; 9:40 am &ndash; 9:30 am</span>
+            </div>
+            <div style="display:flex;justify-content:flex-end">
+              <div class="sms-outbound">Hello! Thank you for your interest in our full body laser service. I'd love to discuss the treatment details and pricing with you. Will give you a call back in next 30 mins.</div>
+            </div>
+          </div>
+
+          <!-- SMS Inbound -->
+          <div class="timeline-event" data-type="sms" data-lead="all">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-sms">&#9993;</div>
+                <span class="event-label">SMS</span>
+                <span class="badge badge-warning" style="font-size:10px">Inbound</span>
+                <span class="badge badge-info" style="font-size:10px">Score: 8</span>
+              </div>
+              <span class="event-time">+1 (407) 203-8926 &middot; May 8, 2025 &ndash; 7:20 PM</span>
+            </div>
+            <div class="sms-inbound">Can you please call tomorrow evening around 7pm? Today I am busy with some work and will not be able to talk.</div>
+          </div>
+
+          <!-- SMS Response -->
+          <div class="timeline-event" data-type="sms" data-lead="membership">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-sms">&#9993;</div>
+                <span class="event-label">SMS</span>
+                <span class="badge badge-info" style="font-size:10px">Outbound</span>
+              </div>
+              <span class="event-time">Sarah Johnson &middot; 9:40 am &ndash; 9:30 am</span>
+            </div>
+            <div style="display:flex;justify-content:flex-end">
+              <div class="sms-outbound">Sure, will call you back tomorrow around 7pm</div>
+            </div>
+          </div>
+
+          <!-- Task -->
+          <div class="timeline-event" data-type="task" data-lead="membership">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-task">&#9745;</div>
+                <span class="event-label">Task</span>
+                <span class="badge badge-warning" style="font-size:10px">Score: 5</span>
+              </div>
+              <span class="event-time">Sarah Johnson &middot; May 8, 2025 &ndash; 7:30 PM</span>
+            </div>
+            <div class="event-body">
+              Call on May 9, 2025 | 07:00PM
+            </div>
+            <div class="event-lead-tag">Lead: Membership Lead</div>
+          </div>
+
+          <!-- AI Call Result (Botox lead) -->
+          <div class="timeline-event" data-type="call" data-lead="botox">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-ai-call">&#129302;</div>
+                <span class="event-label">AI Call</span>
+                <span class="badge badge-success" style="font-size:10px">Completed &middot; Positive</span>
+              </div>
+              <span class="event-time">AI Agent &middot; May 7, 2025 &ndash; 9:15 AM</span>
+            </div>
+            <div class="event-body">
+              AI appointment follow-up call. Duration: 2 min 34 sec. Sentiment: Positive.<br>
+              Key insight: Lead interested in Botox pricing. Requested callback.
+            </div>
+            <div class="event-lead-tag">Lead: Botox Treatment Lead</div>
+          </div>
+
+          <!-- Note (Botox lead) -->
+          <div class="timeline-event" data-type="note" data-lead="botox">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-note">&#128221;</div>
+                <span class="event-label">Note</span>
+              </div>
+              <span class="event-time">Sarah Johnson &middot; May 6, 2025</span>
+            </div>
+            <div class="event-body">
+              Lead inquired about Botox treatment. Wants pricing for forehead and crow's feet areas. Budget is flexible. Prefers morning appointments.
+            </div>
+            <div class="event-lead-tag">Lead: Botox Treatment Lead</div>
+          </div>
+
+          <!-- Voicemail -->
+          <div class="timeline-event" data-type="call" data-lead="membership">
+            <div class="event-header">
+              <div class="event-type">
+                <div class="event-icon event-icon-voicemail">&#127908;</div>
+                <span class="event-label">Voicemail</span>
+              </div>
+              <span class="event-time">May 5, 2025 &ndash; 3:22 PM</span>
+            </div>
+            <div class="event-body">
+              Voicemail captured by Smart Bot. Caller inquired about gym membership pricing and class schedules. Duration: 45 sec.
+            </div>
+            <div class="event-lead-tag">Lead: Membership Lead</div>
+          </div>
+        </div>
+
+        <!-- Messaging Component -->
+        <div class="lms-messaging">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="messaging-toggle">
+              <button class="active" onclick="setMsgMode(this, 'reply')">Reply</button>
+              <button onclick="setMsgMode(this, 'private')">Private note</button>
+            </div>
+            <div class="messaging-type">
+              <span style="font-size:12px;color:#6b7689">&#9993;</span>
+              <select style="padding:3px 8px;border:1px solid #e0e4ea;border-radius:4px;font-size:12px">
+                <option>SMS</option>
+              </select>
+            </div>
+          </div>
+          <div class="messaging-input-row">
+            <textarea placeholder="Type message here" id="lmsMessageInput"></textarea>
+            <div class="messaging-actions">
+              <button class="msg-attach-btn" title="Attach file">&#128206;</button>
+              <button class="msg-attach-btn" title="Template">&#128196;</button>
+              <button class="msg-attach-btn" title="Image">&#128248;</button>
+              <button class="msg-attach-btn" title="Emoji">&#128578;</button>
+              <button class="msg-send-btn" title="Send" onclick="sendMessage()">&#10148;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Lead Details -->
+      <div class="lms-right-panel">
+        <div class="lms-details-tabs">
+          <div class="lms-details-tab active">Details</div>
+          <div class="lms-details-tab">Notes</div>
+          <div class="lms-details-tab">Tasks</div>
+          <div class="lms-details-tab">Other info</div>
+          <div style="margin-left:auto;font-size:18px;color:#8895a7;cursor:pointer">+</div>
+        </div>
+
+        <!-- Lead Score -->
+        <div class="lead-score-section">
+          <div class="lead-score-header">
+            <span class="lead-score-label">Lead score</span>
+            <span class="lead-score-value">83 / 150</span>
+          </div>
+          <div class="lead-score-bar">
+            <div class="lead-score-fill" style="width:55%"></div>
+          </div>
+        </div>
+
+        <!-- Call Buttons -->
+        <div class="lms-call-section">
+          <button class="lms-call-btn manual" onclick="startManualCall()">
+            &#128222; Call &#9660;
+          </button>
+          <button class="lms-call-btn ai-call" onclick="openAICallModal()">
+            &#129302; AI call
+          </button>
+        </div>
+
+        <!-- More info tabs -->
+        <div class="lms-detail-more-tabs">
+          <span class="lms-more-tab active">More info</span>
+          <span class="lms-more-tab">Vitals</span>
+          <span class="lms-more-tab">Allergies</span>
+          <span class="lms-more-tab">Habits</span>
+          <span class="lms-more-tab">+15 more</span>
+          <span style="margin-left:auto;font-size:12px;color:#1a8a8a;cursor:pointer">Add/Manage</span>
+        </div>
+
+        <!-- Linked Guest Profile -->
+        <div class="linked-guest-section">
+          <div class="linked-guest-label">
+            &#9432; Linked guest profile
+          </div>
+          <div class="linked-guest-value">
+            <span>Emily Johnson Smith | +1 702 555 7623</span>
+            <span class="linked-guest-link" onclick="navigateToHC('Emily Johnson Smith')">
+              Change &#8599;
+            </span>
+          </div>
+        </div>
+
+        <!-- User Details -->
+        <div class="user-details-section">
+          <h4>&#128100; User details</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="detail-field">
+              <label>Name</label>
+              <div class="detail-value">NA</div>
+            </div>
+            <div class="detail-field">
+              <label>Phone</label>
+              <div class="detail-value">+1 (407) 203-8926</div>
+            </div>
+            <div class="detail-field">
+              <label>Email</label>
+              <div class="detail-value" style="color:#8895a7">&ndash;</div>
+            </div>
+            <div class="detail-field">
+              <label>Description</label>
+              <div class="detail-value">NA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lead Assessment -->
+        <div class="lead-assessment-section">
+          <h4>&#128202; Lead assessment</h4>
+          <div class="assessment-row">
+            <div class="assessment-field">
+              <label>Sales stage</label>
+              <select id="salesStage" onchange="handleStageChange()">
+                <option value="new" selected>New lead</option>
+                <option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option>
+                <option value="proposal">Proposal</option>
+                <option value="won">Won</option>
+                <option value="lost">Lost</option>
+              </select>
+            </div>
+            <div class="assessment-field">
+              <label>Priority</label>
+              <div class="pill-value" style="color:#a06b28;background:#faf0e1;text-align:center;border:1px solid #e0cdb3">Medium</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Convert Lead -->
+        <div class="convert-lead-section">
+          <button class="convert-lead-btn" onclick="openConvertModal()">
+            &#127942; Convert Lead
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call Overlay -->
+<div class="call-overlay" id="callOverlay">
+  <div class="call-card">
+    <div class="avatar avatar-blue" style="width:72px;height:72px;font-size:28px;margin:0 auto">+1</div>
+    <div class="caller-name">+1 (407) 203-8926</div>
+    <div class="caller-number">Outbound call via LMS</div>
+    <div class="call-status" id="callStatus">Ringing...</div>
+    <div class="call-timer" id="callTimer">00:00</div>
+    <div class="call-controls">
+      <button class="call-btn call-btn-mute" title="Mute">&#128263;</button>
+      <button class="call-btn call-btn-hold" title="Hold">&#9208;</button>
+      <button class="call-btn call-btn-end" title="End call" onclick="endCall()">&#128308;</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Call Modal -->
+<div class="modal-overlay" id="aiCallModal">
+  <div class="modal ai-call-modal">
+    <h3>&#129302; Schedule AI Call</h3>
+    <div class="form-group">
+      <label>Use Case</label>
+      <select>
+        <option>Appointment Follow-Up</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Prompt / Script</label>
+      <textarea placeholder="Hi, this is an AI assistant from Beuforce Albertville. I'm calling to follow up on your interest in our membership plans..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Context (auto-populated)</label>
+      <div class="ai-call-context">
+        <strong>Lead:</strong> Membership Lead<br>
+        <strong>Phone:</strong> +1 (407) 203-8926<br>
+        <strong>Last interaction:</strong> SMS exchange on May 8, 2025<br>
+        <strong>Interest:</strong> Full body laser service, membership pricing
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Schedule Time (optional)</label>
+      <input type="datetime-local">
+      <div style="font-size:11px;color:#6b7689;margin-top:4px">Leave empty for AI to decide within business hours (9 AM &ndash; 5 PM EST)</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeAICallModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="scheduleAICall()">&#129302; Schedule AI Call</button>
+    </div>
+  </div>
+</div>
+
+<!-- Convert Lead Modal -->
+<div class="modal-overlay" id="convertModal">
+  <div class="modal">
+    <h3>&#127942; Convert Lead</h3>
+    <p>Mark this lead as converted? This will:<br>
+    &bull; Remove the lead indicator badge in HyperConnect<br>
+    &bull; Transition the contact to a regular guest profile<br>
+    &bull; Archive the lead timeline (still accessible)</p>
+    <div style="background:#e2f2e9;border:1px solid #9ccfb0;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px">
+      <strong>Lead:</strong> Membership Lead<br>
+      <strong>Contact:</strong> +1 (407) 203-8926<br>
+      <strong>Linked guest:</strong> Emily Johnson Smith
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeConvertModal()">Cancel</button>
+      <button class="btn btn-success" onclick="convertLead()">&#10004; Confirm Conversion</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script>
+  // State
+  let currentView = 'consolidated'; // 'consolidated' or 'filtered'
+  let currentLeadFilter = null;
+  let callTimerInterval = null;
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    const from = getUrlParam('from');
+    if (from === 'hc') {
+      showToast('Navigated from HyperConnect', 'info');
+    }
+    // Auto expand first tree
+    toggleExpand('phone1');
+  });
+
+  // Tree expand/collapse
+  function toggleExpand(personId) {
+    const children = document.getElementById(`children-${personId}`);
+    const chevron = document.querySelector(`[data-person="${personId}"] .expand-chevron`);
+    if (children) {
+      children.classList.toggle('expanded');
+      if (chevron) chevron.classList.toggle('expanded');
+    }
+  }
+
+  // Select person (consolidated view)
+  function selectPerson(el, personId) {
+    document.querySelectorAll('.lead-item').forEach(i => i.classList.remove('selected'));
+    document.querySelectorAll('.lead-child-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    currentView = 'consolidated';
+    currentLeadFilter = null;
+    document.getElementById('activitiesTitle').textContent = 'Activities';
+    filterEvents();
+  }
+
+  // Select specific lead (filtered view)
+  function selectLead(el, leadId) {
+    document.querySelectorAll('.lead-child-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    currentView = 'filtered';
+    currentLeadFilter = leadId;
+    const leadName = el.querySelector('.lead-child-name').textContent;
+    document.getElementById('activitiesTitle').textContent = `Activities — ${leadName}`;
+    filterEvents();
+  }
+
+  // Filter timeline events
+  function filterEvents() {
+    const typeFilter = document.getElementById('eventFilter').value;
+    const events = document.querySelectorAll('.timeline-event');
+    events.forEach(ev => {
+      const evType = ev.dataset.type;
+      const evLead = ev.dataset.lead;
+
+      let showByType = (typeFilter === 'all') || (evType === typeFilter);
+      let showByLead = true;
+      if (currentView === 'filtered' && currentLeadFilter) {
+        showByLead = (evLead === currentLeadFilter || evLead === 'all');
+      }
+      ev.style.display = (showByType && showByLead) ? '' : 'none';
+    });
+  }
+
+  // Send message
+  function sendMessage() {
+    const input = document.getElementById('lmsMessageInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Add to timeline
+    const timeline = document.getElementById('timeline');
+    const newEvent = document.createElement('div');
+    newEvent.className = 'timeline-event new-event';
+    newEvent.dataset.type = 'sms';
+    newEvent.dataset.lead = currentLeadFilter || 'all';
+    newEvent.innerHTML = `
+      <div class="event-header">
+        <div class="event-type">
+          <div class="event-icon event-icon-sms">&#9993;</div>
+          <span class="event-label">SMS</span>
+          <span class="badge badge-info" style="font-size:10px">Outbound</span>
+        </div>
+        <span class="event-time">You &middot; just now</span>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <div class="sms-outbound">${text}</div>
+      </div>
+    `;
+    timeline.prepend(newEvent);
+    input.value = '';
+
+    // Show sync
+    const sync = showSyncIndicator('Syncing SMS to HyperConnect...');
+    setTimeout(() => {
+      hideSyncIndicator();
+      showToast('Message sent & synced to HyperConnect', 'success');
+    }, 1500);
+  }
+
+  // Message mode toggle
+  function setMsgMode(btn, mode) {
+    document.querySelectorAll('.messaging-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (mode === 'private') {
+      showToast('Private notes do NOT sync to HyperConnect', 'warning');
+    }
+  }
+
+  // Manual Call
+  function startManualCall() {
+    const overlay = document.getElementById('callOverlay');
+    const status = document.getElementById('callStatus');
+    const timer = document.getElementById('callTimer');
+    overlay.classList.add('active');
+    status.textContent = 'Ringing...';
+    timer.textContent = '00:00';
+
+    setTimeout(() => {
+      status.textContent = 'Connected';
+      status.style.color = '#2d9e6a';
+      callTimerInterval = startCallTimer(timer);
+    }, 2000);
+  }
+
+  function endCall() {
+    const overlay = document.getElementById('callOverlay');
+    overlay.classList.remove('active');
+    if (callTimerInterval) clearInterval(callTimerInterval);
+
+    // Add call to timeline
+    const timeline = document.getElementById('timeline');
+    const newEvent = document.createElement('div');
+    newEvent.className = 'timeline-event new-event';
+    newEvent.dataset.type = 'call';
+    newEvent.dataset.lead = currentLeadFilter || 'all';
+    newEvent.innerHTML = `
+      <div class="event-header">
+        <div class="event-type">
+          <div class="event-icon event-icon-call">&#128222;</div>
+          <span class="event-label">Manual Call</span>
+          <span class="badge badge-success" style="font-size:10px">Answered</span>
+        </div>
+        <span class="event-time">You &middot; just now</span>
+      </div>
+      <div class="event-body">Outbound call to +1 (407) 203-8926. Duration: ${document.getElementById('callTimer').textContent}</div>
+    `;
+    timeline.prepend(newEvent);
+
+    const sync = showSyncIndicator('Syncing call log to HyperConnect...');
+    setTimeout(() => {
+      hideSyncIndicator();
+      showToast('Call logged & synced to HyperConnect', 'success');
+    }, 1500);
+  }
+
+  // AI Call
+  function openAICallModal() {
+    document.getElementById('aiCallModal').classList.add('active');
+  }
+  function closeAICallModal() {
+    document.getElementById('aiCallModal').classList.remove('active');
+  }
+  function scheduleAICall() {
+    closeAICallModal();
+    // Add scheduled event
+    const timeline = document.getElementById('timeline');
+    const newEvent = document.createElement('div');
+    newEvent.className = 'timeline-event new-event';
+    newEvent.dataset.type = 'call';
+    newEvent.dataset.lead = 'membership';
+    newEvent.innerHTML = `
+      <div class="event-header">
+        <div class="event-type">
+          <div class="event-icon event-icon-ai-call">&#129302;</div>
+          <span class="event-label">AI Call Scheduled</span>
+          <span class="badge badge-warning" style="font-size:10px">Pending</span>
+        </div>
+        <span class="event-time">AI Agent &middot; just now</span>
+      </div>
+      <div class="event-body">Appointment follow-up AI call scheduled. Will execute within business hours (9 AM &ndash; 5 PM EST).</div>
+      <div class="event-lead-tag">Lead: Membership Lead</div>
+    `;
+    timeline.prepend(newEvent);
+    showToast('AI call scheduled successfully', 'success');
+  }
+
+  // Convert Lead
+  function openConvertModal() {
+    document.getElementById('convertModal').classList.add('active');
+  }
+  function closeConvertModal() {
+    document.getElementById('convertModal').classList.remove('active');
+  }
+  function convertLead() {
+    closeConvertModal();
+    const sync = showSyncIndicator('Converting lead & updating HyperConnect...');
+    setTimeout(() => {
+      hideSyncIndicator();
+      // Update UI
+      document.getElementById('salesStage').value = 'won';
+      document.querySelector('.convert-lead-btn').style.display = 'none';
+      // Add conversion event
+      const timeline = document.getElementById('timeline');
+      const newEvent = document.createElement('div');
+      newEvent.className = 'timeline-event new-event';
+      newEvent.dataset.type = 'lead';
+      newEvent.dataset.lead = 'all';
+      newEvent.innerHTML = `
+        <div class="event-header">
+          <div class="event-type">
+            <div class="event-icon event-icon-lead">&#127942;</div>
+            <span class="event-label">Lead Converted</span>
+            <span class="badge badge-success" style="font-size:10px">Won</span>
+          </div>
+          <span class="event-time">just now</span>
+        </div>
+        <div class="event-body">Lead converted successfully. Badge removed in HyperConnect. Contact transitioned to regular guest profile.</div>
+      `;
+      timeline.prepend(newEvent);
+      showToast('Lead converted! Badge removed in HyperConnect.', 'success', 4000);
+    }, 2000);
+  }
+
+  function handleStageChange() {
+    const stage = document.getElementById('salesStage').value;
+    if (stage === 'won') openConvertModal();
+  }
+
+  // Enter key to send
+  document.getElementById('lmsMessageInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HyperConnect — Zenoti</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/hc.css">
+</head>
+<body>
+<div class="hc-app">
+  <!-- Sidebar -->
+  <nav class="hc-sidebar">
+    <div class="hc-sidebar-icon" style="margin-bottom:8px" title="HyperConnect">
+      <span style="font-size:20px;color:#1a8a8a;font-weight:800">HC</span>
+    </div>
+    <div class="hc-sidebar-icon" title="Dashboard">&#127968;</div>
+    <div class="hc-sidebar-icon" title="Grid">&#9783;</div>
+    <div class="hc-sidebar-icon active" title="Contacts">
+      &#128101;
+      <span class="notif-dot"></span>
+    </div>
+    <div class="hc-sidebar-icon" title="Calls">&#128222;</div>
+    <div class="hc-sidebar-icon" title="Calendar">&#128197;</div>
+    <div class="hc-sidebar-icon" title="Messages">&#128172;</div>
+    <div class="hc-sidebar-icon" title="Bot">&#129302;</div>
+    <div class="hc-sidebar-icon" title="Reports">&#128202;</div>
+    <div style="flex:1"></div>
+    <div class="hc-sidebar-icon" title="Settings">&#9881;</div>
+  </nav>
+
+  <!-- Main -->
+  <div class="hc-main">
+    <!-- Top Bar -->
+    <div class="hc-topbar">
+      <div class="hc-topbar-left">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="avatar avatar-purple" style="width:32px;height:32px;font-size:11px">VT</div>
+          <div class="hc-topbar-title">
+            <span class="hc-topbar-name">Velvet Touch's Timeline</span>
+            <span class="hc-topbar-center">Center: Boston</span>
+          </div>
+        </div>
+      </div>
+      <div class="hc-topbar-right">
+        <select style="padding:6px 10px;border:1px solid #e0e4ea;border-radius:6px;font-size:13px">
+          <option>South Granville</option>
+          <option>Albertville</option>
+        </select>
+        <div class="avatar avatar-blue" style="width:32px;height:32px;font-size:12px">SJ</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="hc-content">
+      <!-- LEFT PANEL -->
+      <div class="hc-left-panel">
+        <div class="hc-left-header">
+          <span class="hc-left-title">Leads and guests &#9660;</span>
+          <div class="hc-left-actions">
+            <button title="Filter">&#9776;</button>
+            <button title="Search">&#128269;</button>
+          </div>
+        </div>
+        <div class="hc-section-label">Recent</div>
+        <div class="hc-guest-list" id="guestList">
+          <!-- Lead Entry with badge -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'phone-lead')" data-guest="phone-lead">
+            <div class="hc-guest-avatar" style="background:#4a7fa5">
+              +1
+              <span class="lead-dot">L</span>
+            </div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">
+                +1 (407) 203-8926
+                <span class="hc-lead-badge">LEAD</span>
+              </div>
+              <div class="hc-guest-status">Hi! I saw your ad for the f...</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">1:43 pm</div>
+              <div class="hc-guest-indicators">&#128172;</div>
+            </div>
+          </div>
+
+          <!-- Anna Duke (selected) -->
+          <div class="hc-guest-item selected" onclick="selectGuest(this, 'anna')" data-guest="anna">
+            <div class="hc-guest-avatar" style="background:#7b6ea8">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect fill='%238b5cf6' width='40' height='40' rx='20'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' fill='white' font-size='14' font-weight='600' dy='.1em'%3EAD%3C/text%3E%3C/svg%3E" style="width:40px;height:40px;border-radius:50%">
+            </div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">
+                Anna Duke
+                <span class="hc-icons">&#128241; &#128172; &#128100;</span>
+              </div>
+              <div class="hc-guest-status">Inbound call</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">1:30 pm</div>
+            </div>
+          </div>
+
+          <!-- Sarah Clark -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'sarah')" data-guest="sarah">
+            <div class="hc-guest-avatar" style="background:#3d8b6e">SC</div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">Sarah Clark <span class="hc-icons">&#128172; &#129302;</span></div>
+              <div class="hc-guest-status">Chat with smartbot</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">1:12 pm</div>
+              <div class="hc-guest-indicators">&#128172;</div>
+            </div>
+          </div>
+
+          <!-- Mike Ross -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'mike')" data-guest="mike">
+            <div class="hc-guest-avatar" style="background:#c47a3a">MR</div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">
+                Mike Ross
+                <span class="hc-icons">&#128241; &#128172; &#128100;</span>
+                <span class="hc-lead-badge">LEAD</span>
+              </div>
+              <div class="hc-guest-status">Outbound call</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">12:10 pm</div>
+            </div>
+          </div>
+
+          <!-- Linda Thomas -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'linda')" data-guest="linda">
+            <div class="hc-guest-avatar" style="background:#6b7689">LT</div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">Linda Thomas <span class="hc-icons">&#128241;</span></div>
+              <div class="hc-guest-status">Joined waitlist</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">11:58 am</div>
+              <div class="hc-guest-indicators">&#9881;</div>
+            </div>
+          </div>
+
+          <!-- Lily White (LEAD) -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'lily')" data-guest="lily">
+            <div class="hc-guest-avatar" style="background:#b56b8a">
+              LW
+              <span class="lead-dot">L</span>
+            </div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">
+                Lily White
+                <span class="hc-lead-badge">LEAD</span>
+              </div>
+              <div class="hc-guest-status">Booking cancelled/No show</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">11:23 am</div>
+              <div class="hc-guest-indicators">&#128172;</div>
+            </div>
+          </div>
+
+          <!-- David Robinson -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'david')" data-guest="david">
+            <div class="hc-guest-avatar" style="background:#5c6099">DR</div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">David Robinson <span class="hc-icons">&#128172; &#129302;</span></div>
+              <div class="hc-guest-status">Received from campaign</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">11:00 am</div>
+            </div>
+          </div>
+
+          <!-- John Perry (LEAD) -->
+          <div class="hc-guest-item" onclick="selectGuest(this, 'john')" data-guest="john">
+            <div class="hc-guest-avatar" style="background:#1a8a8a">
+              JP
+              <span class="lead-dot">L</span>
+            </div>
+            <div class="hc-guest-info">
+              <div class="hc-guest-name">
+                John Perry
+                <span class="hc-lead-badge">LEAD</span>
+              </div>
+              <div class="hc-guest-status">Appointment notes added</div>
+            </div>
+            <div class="hc-guest-meta">
+              <div class="hc-guest-time">10:45 am</div>
+            </div>
+          </div>
+        </div>
+        <!-- FAB -->
+        <div style="position:absolute;bottom:20px;right:20px">
+          <button style="width:48px;height:48px;border-radius:50%;background:#1a8a8a;color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(14,165,233,0.3)">+</button>
+        </div>
+      </div>
+
+      <!-- CENTER PANEL: Timeline -->
+      <div class="hc-center-panel">
+        <div class="hc-timeline-header">
+          <div class="hc-contact-info">
+            <div>
+              <div class="hc-contact-name" id="hcContactName">Anna Duke</div>
+              <div class="hc-contact-sub" style="color:#1a8a8a;cursor:pointer">Assign tags</div>
+            </div>
+          </div>
+          <div class="hc-header-actions">
+            <button class="hc-action-btn hc-call-action" title="Call">&#128222;</button>
+            <button class="hc-new-btn">&#128221; New</button>
+            <button class="hc-action-btn" style="background:#f0f2f5;color:#6b7689" title="More">&#8942;</button>
+          </div>
+        </div>
+
+        <div class="hc-timeline" id="hcTimeline">
+          <!-- Google Review (existing HC event) -->
+          <div class="hc-event">
+            <div class="hc-event-meta">
+              <span>Anna Duke - not linked</span>
+              <span>4:20 pm</span>
+            </div>
+            <div class="hc-event-card">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <span style="color:#4a7fa5;font-size:18px">G</span>
+                <span style="font-weight:600">Google review</span>
+                <span style="margin-left:auto;color:#c4a050">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span>
+              </div>
+              <p style="font-size:13px;color:#4d5768;line-height:1.5">Had an amazing experience with my haircut and hair color! The stylist really listened to what I wanted... <span style="color:#1a8a8a;cursor:pointer">Read more</span></p>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <div style="width:60px;height:60px;background:#f0f2f5;border-radius:6px"></div>
+                <div style="width:60px;height:60px;background:#f0f2f5;border-radius:6px"></div>
+                <div style="width:60px;height:60px;background:#f0f2f5;border-radius:6px"></div>
+              </div>
+              <div style="font-size:12px;color:#6b7689;margin-top:8px">Amount: $90 &nbsp; Services: Woman hair cut, Hair color</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #e0e4ea">
+                <span style="font-size:16px">&#128101;</span>
+                <span style="font-size:12px;color:#6b7689">Multiple guests found.</span>
+                <span style="font-size:12px;color:#1a8a8a;cursor:pointer;margin-left:auto">Link to the right one</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW LEAD CREATED EVENT (from LMS integration) -->
+          <div class="hc-event" id="leadCreatedEvent">
+            <div class="hc-event-meta">
+              <span>System &middot; <span class="via-lms-tag">via LMS</span></span>
+              <span>2:15 pm</span>
+            </div>
+            <div class="hc-lead-event" onclick="navigateToLMS('Membership Lead')">
+              <div class="lead-event-title">
+                &#128188; New lead created: Membership Lead
+              </div>
+              <div class="lead-event-link">
+                View in AI Lead Manager &#8599;
+              </div>
+            </div>
+          </div>
+
+          <!-- Synced SMS from LMS -->
+          <div class="hc-event" id="syncedSmsEvent">
+            <div class="hc-event-meta">
+              <span>Sarah Johnson <span class="via-lms-tag">via LMS</span></span>
+              <span>2:10 pm</span>
+            </div>
+            <div style="display:flex;justify-content:flex-end">
+              <div class="hc-sms-outbound">Hello! Thank you for your interest in our full body laser service. I'd love to discuss the treatment details and pricing with you.</div>
+            </div>
+          </div>
+
+          <div class="hc-day-divider">TODAY</div>
+
+          <!-- Inbound Call -->
+          <div class="hc-event">
+            <div class="hc-event-meta">
+              <span>Anna Duke</span>
+              <span>1:30 pm</span>
+            </div>
+            <div class="hc-call-card">
+              <div class="hc-call-card-header">
+                <span class="hc-call-type">Inbound call</span>
+                <div class="hc-call-meta">
+                  <span style="color:#2d9e6a;font-weight:500">Positive</span>
+                  <span>4 min 34 sec</span>
+                  <span>&#9656;</span>
+                </div>
+              </div>
+              <div class="hc-call-details">With: Diana &nbsp; Center: Albertville, AL</div>
+              <div class="hc-call-audio">
+                <button class="hc-play-btn">&#9654;</button>
+                <div class="hc-audio-bar"><div class="hc-audio-progress"></div></div>
+              </div>
+              <div style="padding:10px 14px;font-size:12px;color:#4d5768;display:flex;align-items:flex-start;gap:6px">
+                <span style="color:#3d8b6e">&#9733;</span>
+                <span>The guest showed interest in hair extension and coloring services, it's a potential lead for conversion. <span style="color:#1a8a8a;cursor:pointer">View insights & transcript</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Synced AI Call from LMS -->
+          <div class="hc-event">
+            <div class="hc-event-meta">
+              <span>AI Agent <span class="via-lms-tag">via LMS</span></span>
+              <span>9:15 am</span>
+            </div>
+            <div class="hc-call-card">
+              <div class="hc-call-card-header">
+                <span class="hc-call-type">&#129302; AI Call (Follow-up)</span>
+                <div class="hc-call-meta">
+                  <span style="color:#2d9e6a;font-weight:500">Positive</span>
+                  <span>2 min 34 sec</span>
+                </div>
+              </div>
+              <div class="hc-call-details">Automated appointment follow-up. Lead interested in membership pricing.</div>
+              <div class="hc-call-audio">
+                <button class="hc-play-btn">&#9654;</button>
+                <div class="hc-audio-bar"><div class="hc-audio-progress" style="width:60%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Messaging Component -->
+        <div class="hc-messaging">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="hc-msg-toggle">
+              <button class="active">Reply</button>
+              <button>Private note</button>
+            </div>
+            <div class="hc-msg-type">
+              <span style="font-size:12px;color:#6b7689">&#9993;</span>
+              <span style="font-size:12px">SMS</span>
+              <span style="font-size:10px;color:#8895a7">&#9660;</span>
+            </div>
+          </div>
+          <div class="hc-msg-input-row">
+            <textarea placeholder="Type message here" id="hcMessageInput"></textarea>
+            <div class="hc-msg-actions">
+              <button>&#128196;</button>
+              <button>&#128206;</button>
+              <button>&#128248;</button>
+              <button>&#128578;</button>
+              <button class="hc-msg-send" onclick="sendHCMessage()">&#10148;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Guest Profile -->
+      <div class="hc-right-panel">
+        <div class="hc-profile-header">
+          <div class="hc-profile-avatar" style="background:#7b6ea8">AD</div>
+          <div class="hc-profile-name">Anna Duke</div>
+          <div class="hc-profile-email">annaduke@gmail.com | +1 580-368-2040</div>
+          <div class="hc-profile-details">&#128172; 23 Apr, 2024 &nbsp; &#128205; Albertville, AL</div>
+          <div class="hc-profile-tags">
+            <span class="hc-profile-tag spender">High spender</span>
+            <span class="hc-profile-tag member">Member</span>
+            <span class="hc-profile-tag" style="background:#f0f2f5">+3</span>
+          </div>
+          <div class="hc-profile-stats">
+            <div class="hc-stat">
+              <div style="display:flex;align-items:center;gap:4px">
+                <span style="font-size:12px">&#127775;</span>
+                <span style="font-size:11px;color:#6b7689">Get inspired</span>
+              </div>
+            </div>
+            <div class="hc-stat">
+              <span class="hc-stat-label">Points</span>
+              <span class="hc-stat-value">4020</span>
+            </div>
+            <div class="hc-stat">
+              <span class="hc-stat-label">$</span>
+              <span class="hc-stat-value">101</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Last Appointment -->
+        <div class="hc-profile-section">
+          <div class="hc-profile-section-header">
+            <span class="hc-profile-section-title">Last appointment</span>
+            <span style="font-size:14px;color:#8895a7;cursor:pointer">&#8250;</span>
+          </div>
+          <div style="background:#f8fafc;border-radius:8px;padding:12px;font-size:13px">
+            <div style="font-weight:600;margin-bottom:6px">2nd Aug at 12:45 pm</div>
+            <div style="color:#4d5768;line-height:1.6">
+              Hair cut with Alex<br>
+              Hair Treatment with Alex<br>
+              Blowout with Alex
+            </div>
+            <div style="font-size:12px;color:#8895a7;margin-top:6px">Center: Albertville, AL &nbsp; Amount: $150</div>
+          </div>
+        </div>
+
+        <!-- Files -->
+        <div class="hc-profile-section">
+          <div class="hc-profile-section-header">
+            <span class="hc-profile-section-title">Files</span>
+            <span style="font-size:14px;color:#8895a7;cursor:pointer">&#8250;</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;color:#8895a7;font-size:13px">
+            <span>&#128193;</span> Files have not been added yet
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="hc-profile-section">
+          <div class="hc-profile-section-header">
+            <span class="hc-profile-section-title">Notes</span>
+            <span style="font-size:14px;color:#8895a7;cursor:pointer">&#8250;</span>
+          </div>
+          <div style="font-size:13px;color:#4d5768;line-height:1.5;margin-bottom:6px">
+            Avoids heat styling, prefers air-dry finishing.
+          </div>
+          <div style="font-size:11px;color:#8895a7">Type: Booking alert &nbsp; Date: 23 Apr 2024</div>
+          <div style="margin-top:8px">
+            <span style="color:#1a8a8a;font-size:13px;cursor:pointer">+ Add new</span>
+          </div>
+        </div>
+
+        <!-- Packages -->
+        <div class="hc-profile-section">
+          <div class="hc-profile-section-header">
+            <span class="hc-profile-section-title">Packages</span>
+            <span style="font-size:14px;color:#8895a7;cursor:pointer">&#8250;</span>
+          </div>
+          <div style="background:#f8fafc;border-radius:8px;padding:12px;font-size:13px">
+            <div style="font-weight:600">Hair Treatment buy 4 get 1 free</div>
+            <div style="font-size:12px;color:#8895a7;margin-top:4px">Price: $120.00 &nbsp; Expiration: 05/31/2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/shared.js"></script>
+<script>
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    const from = getUrlParam('from');
+    const guest = getUrlParam('guest');
+    if (from === 'lms') {
+      showToast(`Navigated from LMS${guest ? ` → ${guest}` : ''}`, 'info');
+    }
+  });
+
+  function selectGuest(el, guestId) {
+    document.querySelectorAll('.hc-guest-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    const name = el.querySelector('.hc-guest-name').childNodes[0].textContent.trim();
+    document.getElementById('hcContactName').textContent = name;
+  }
+
+  function sendHCMessage() {
+    const input = document.getElementById('hcMessageInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const timeline = document.getElementById('hcTimeline');
+    const newEvent = document.createElement('div');
+    newEvent.className = 'hc-event';
+    newEvent.innerHTML = `
+      <div class="hc-event-meta">
+        <span>You</span>
+        <span>just now</span>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <div class="hc-sms-outbound">${text}</div>
+      </div>
+    `;
+
+    // Insert after header area
+    const dayDivider = timeline.querySelector('.hc-day-divider');
+    if (dayDivider) {
+      dayDivider.after(newEvent);
+    } else {
+      timeline.prepend(newEvent);
+    }
+    input.value = '';
+
+    const sync = showSyncIndicator('Syncing SMS to AI Lead Manager...');
+    setTimeout(() => {
+      hideSyncIndicator();
+      showToast('Message sent & synced to all active leads in LMS', 'success');
+    }, 1500);
+  }
+
+  document.getElementById('hcMessageInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendHCMessage();
+    }
+  });
+</script>
+</body>
+</html>

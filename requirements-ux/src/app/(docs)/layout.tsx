@@ -32,6 +32,24 @@ export default function DocsLayout({
                 HyperConnect
               </Link>
             </li>
+            <li>
+              <Link
+                href="/diagrams"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
+              >
+                <span aria-hidden>📊</span>
+                Data Flow Diagrams
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/journey"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
+              >
+                <span aria-hidden>🎯</span>
+                E2E Journey Flows
+              </Link>
+            </li>
             {sections.map(({ slug, label, icon }) => (
               <li key={slug}>
                 <Link

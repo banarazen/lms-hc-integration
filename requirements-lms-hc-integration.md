@@ -23,6 +23,7 @@ This integration enables LMS users to perform two-way SMS messaging and voice ca
 - Preserve distinct value propositions of both products (LMS for lead management, HyperConnect for communications)
 - Support multiple concurrent leads per person with expandable tree model
 - Provide cross-navigation between systems with lead indicators
+- Support HIPAA compliance for MedSpa and healthcare use cases (see **Section 13**)
 
 ---
 
@@ -645,6 +646,7 @@ _As a sales manager, I want to toggle between seeing all activities for a person
 | **Call recording consent** | Display consent prompt before recording (if required by jurisdiction) | Compliance review |
 | **Contact info masking** | Support contact info masking configuration (PII protection) | Feature flag testing |
 | **TCPA compliance** | AI calling adheres to Telephone Consumer Protection Act regulations | Legal review |
+| **HIPAA (MedSpa/healthcare)** | When used in healthcare/MedSpa contexts: BAA availability, encryption of PHI in transit and at rest, access controls and MFA for PHI access, audit logging of PHI access/use. See **Section 13** for full requirements and vendor comparisons (Podium, HubSpot, GoHighLevel). | Security audit; legal review; Section 13 checklist |
 
 ### 7.5 Reliability
 

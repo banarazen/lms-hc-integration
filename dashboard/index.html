@@ -152,36 +152,35 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
 .badge-purple{background:var(--zn-purple-bg);color:var(--zn-purple)}
 .badge-green{background:var(--zn-green-bg);color:var(--zn-green)}
 
-/* ── Funnel (tapered trapezoid style) ── */
-.funnel-wrap{display:flex;flex-direction:column;gap:3px;padding:4px 0}
-.funnel-row{display:flex;align-items:stretch;gap:10px;cursor:pointer;transition:opacity .2s}
-.funnel-row:hover{opacity:.85}
-.funnel-trap-wrap{flex:1;display:flex;justify-content:center}
-.funnel-trap{
-  position:relative;height:36px;display:flex;align-items:center;
-  justify-content:center;border-radius:2px;transition:width .7s ease;
+/* ── Funnel (tapered bar style) ── */
+.funnel-wrap{display:flex;flex-direction:column;gap:2px;padding:4px 0}
+.funnel-row{display:flex;align-items:center;gap:8px;cursor:pointer;transition:opacity .2s}
+.funnel-row:hover{opacity:.82}
+.funnel-center{flex:1;position:relative;height:38px}
+.funnel-bar-bg{position:absolute;inset:0;background:var(--zn-surface);border-radius:4px}
+.funnel-bar-fill{
+  position:absolute;top:0;left:0;height:100%;border-radius:4px;
+  transition:width .8s cubic-bezier(.4,0,.2,1);
 }
-.funnel-trap-label{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  font-size:11px;font-weight:700;color:#fff;white-space:nowrap;letter-spacing:.01em;
-  text-shadow:0 1px 2px rgba(0,0,0,.25);
+.funnel-bar-label{
+  position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  font-size:11px;font-weight:700;color:#fff;
+  white-space:nowrap;letter-spacing:.01em;
+  text-shadow:0 1px 2px rgba(0,0,0,.3);pointer-events:none;
 }
-.funnel-trap-count{
-  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+.funnel-bar-count{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
   font-size:13px;font-weight:900;color:#fff;
-  text-shadow:0 1px 2px rgba(0,0,0,.25);
+  text-shadow:0 1px 2px rgba(0,0,0,.3);pointer-events:none;
 }
-.funnel-side{
-  width:72px;flex-shrink:0;display:flex;flex-direction:column;
-  justify-content:center;
-}
+.funnel-side{width:68px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
 .funnel-side.left{align-items:flex-end;text-align:right}
 .funnel-side.right{align-items:flex-start;text-align:left}
-.funnel-drop{font-size:10px;font-weight:700}
+.funnel-drop{font-size:10px;font-weight:700;line-height:1.3}
 .funnel-drop.hi{color:var(--zn-red)}
 .funnel-drop.md{color:var(--zn-amber)}
 .funnel-drop.ok{color:var(--zn-green)}
-.funnel-days{font-size:10px;color:var(--zn-text-3)}
+.funnel-days{font-size:10px;color:var(--zn-text-3);line-height:1.3}
 .drop-off-hi{color:var(--zn-red);font-size:11px;font-weight:700}
 .drop-off-md{color:var(--zn-amber);font-size:11px;font-weight:700}
 .pipeline-total{background:var(--zn-teal-bg);border-radius:var(--r-3);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12px}
@@ -755,28 +754,30 @@ function renderKPIs(){
     </div>`).join('');
 }
 
-// ─── FUNNEL (tapered trapezoid) ────────────────────────────────────────────
+// ─── FUNNEL (tapered bar — width % resolves against positioned parent) ─────
 function renderFunnel(){
   const max=FUNNEL[0].count;
-  const minW=42, maxW=100; // % widths for trapezoid taper
+  // minPct: narrowest bar (Lost/last) = 35%, widest (New) = 100%
+  const minPct=35, maxPct=100;
   document.getElementById('funnel-stages').innerHTML=FUNNEL.map((s,i)=>{
-    const pct=Math.round((s.count/max)*100);
-    const w=minW+((maxW-minW)*(pct/100));
-    const dropClass=s.dropOff===null?'':'drop'+((s.dropOff>30)?'hi':(s.dropOff>20)?'md':'ok');
-    const dropColor=s.dropOff===null?'':s.dropOff>30?'hi':s.dropOff>20?'md':'ok';
+    const fillPct=Math.round(minPct+((maxPct-minPct)*(s.count/max)));
+    const dropColor=s.dropOff===null?'ok':s.dropOff>30?'hi':s.dropOff>20?'md':'ok';
+    const rTop=i===0?'6px':'2px', rBot=i===FUNNEL.length-1?'6px':'2px';
     return `
     <div class="funnel-row" onclick="toggleStage('${s.stage}')">
       <div class="funnel-side left">
-        ${s.dropOff!==null?`<span class="funnel-drop ${dropColor}">${s.dropOff>30?'▼':'↓'} ${s.dropOff}%</span><span class="funnel-days">drop-off</span>`:'<span class="funnel-days">entry</span>'}
+        ${s.dropOff!==null
+          ? `<span class="funnel-drop ${dropColor}">${s.dropOff>30?'▼':'↓'} ${s.dropOff}%</span><span class="funnel-days">drop-off</span>`
+          : `<span class="funnel-days" style="color:var(--zn-blue);font-weight:700">Entry</span>`}
       </div>
-      <div class="funnel-trap-wrap">
-        <div class="funnel-trap" style="width:${w}%;background:${s.color};border-radius:${i===0?'6px 6px 2px 2px':i===FUNNEL.length-1?'2px 2px 6px 6px':'2px'}">
-          <span class="funnel-trap-label">${s.stage}</span>
-          <span class="funnel-trap-count">${fmt.num(s.count)}</span>
-        </div>
+      <div class="funnel-center">
+        <div class="funnel-bar-bg"></div>
+        <div class="funnel-bar-fill" style="width:${fillPct}%;background:${s.color};border-radius:${rTop} ${rTop} ${rBot} ${rBot}"></div>
+        <span class="funnel-bar-label">${s.stage}</span>
+        <span class="funnel-bar-count">${fmt.num(s.count)}</span>
       </div>
       <div class="funnel-side right">
-        ${s.avgDays?`<span class="funnel-days" style="color:var(--zn-text-2);font-weight:700">⏱ ${s.avgDays}d</span><span class="funnel-days">avg</span>`:''}
+        ${s.avgDays?`<span class="funnel-days" style="font-weight:700;color:var(--zn-text-2)">⏱ ${s.avgDays}d</span><span class="funnel-days">avg time</span>`:''}
       </div>
     </div>`;
   }).join('');

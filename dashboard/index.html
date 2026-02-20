@@ -24,18 +24,21 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .card-sm{padding:14px}
 
 /* Header */
-header{background:#fff;border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
 .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0}
 .header-title{font-weight:700;font-size:14px;color:var(--text)}
-.header-sub{font-size:12px;color:var(--text-muted);margin-left:8px}
-.header-controls{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .date-pills{display:flex;background:#F1F5F9;border-radius:10px;padding:3px;gap:2px}
-.date-pill{padding:5px 12px;border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;color:var(--text-muted);border:none;background:transparent;transition:all .15s}
+.date-pill{padding:4px 10px;border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;color:var(--text-muted);border:none;background:transparent;transition:all .15s;font-family:inherit}
 .date-pill.active{background:var(--teal);color:#fff}
-.filter-select{font-size:11px;border:1px solid var(--border);border-radius:8px;padding:6px 10px;outline:none;font-family:inherit;color:var(--text);background:#fff;cursor:pointer}
+.filter-select{font-size:11px;border:1.5px solid var(--border);border-radius:8px;padding:5px 8px;outline:none;font-family:inherit;color:var(--text);background:#fff;cursor:pointer;transition:border-color .15s}
 .filter-select:focus{border-color:var(--teal)}
-.btn-ghost{font-size:11px;border:1px solid var(--border);border-radius:8px;padding:6px 12px;background:#fff;cursor:pointer;color:var(--text-muted);font-family:inherit;transition:background .15s}
+.btn-ghost{font-size:11px;border:1px solid var(--border);border-radius:8px;padding:6px 12px;background:#fff;cursor:pointer;color:var(--text-muted);font-family:inherit;transition:all .15s}
 .btn-ghost:hover{background:#F8FAFC}
+/* Active filter chip */
+.filter-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;background:var(--teal-light);color:var(--teal-dark);border:1px solid var(--teal)}
+.filter-chip button{background:none;border:none;cursor:pointer;color:var(--teal);font-size:12px;line-height:1;padding:0;margin-left:2px}
+/* Search highlight */
+.search-highlight{background:#FEF9C3;border-radius:2px}
 
 /* Layout */
 main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:20px}
@@ -258,33 +261,114 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
 </div>
 
 <!-- HEADER -->
-<header>
-  <div class="logo">Z</div>
-  <span class="header-title">Zenoti LMS</span>
-  <span class="header-sub" style="display:none" id="hdr-sub">Lead Management Dashboard</span>
-  <div class="header-controls">
-    <div class="date-pills">
-      <button class="date-pill" onclick="setRange('Today')">Today</button>
-      <button class="date-pill" onclick="setRange('7d')">7 days</button>
-      <button class="date-pill active" onclick="setRange('30d')">30 days</button>
-      <button class="date-pill" onclick="setRange('60d')">60 days</button>
+<header style="flex-direction:column;align-items:stretch;gap:0;padding:0">
+  <!-- Top bar: logo + search + actions -->
+  <div style="display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border)">
+    <div class="logo">Z</div>
+    <span class="header-title">Zenoti LMS</span>
+    <span style="color:var(--border);font-size:14px">|</span>
+    <span style="font-size:12px;color:var(--text-muted);font-weight:500">Lead Management Dashboard</span>
+    <!-- Search bar -->
+    <div style="flex:1;max-width:320px;margin-left:8px;position:relative">
+      <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-light);font-size:13px">🔍</span>
+      <input id="lead-search" type="text" placeholder="Search leads, agents, sources…"
+        style="width:100%;padding:7px 10px 7px 30px;border:1.5px solid var(--border);border-radius:10px;font-size:12px;outline:none;font-family:inherit;color:var(--text);background:#fff;transition:border-color .15s"
+        onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"
+        oninput="applySearch(this.value)"/>
     </div>
-    <select class="filter-select" id="src-filter" onchange="applyFilter()">
-      <option value="">All Sources</option>
-      <option>AI Receptionist</option>
-      <option>Facebook Ads</option>
-      <option>Google Ads</option>
-      <option>Website Form</option>
-      <option>Walk-in</option>
-      <option>Referral</option>
-    </select>
-    <select class="filter-select" id="ctr-filter" onchange="applyFilter()">
-      <option value="">All Centers</option>
-      <option>Beverly Hills</option>
-      <option>Santa Monica</option>
-      <option>Pasadena</option>
-    </select>
-    <button class="btn-ghost">⬇ Export</button>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <button class="btn-ghost" onclick="clearAllFilters()" id="clear-filters-btn" style="display:none;color:var(--teal);border-color:var(--teal)">✕ Clear filters</button>
+      <button class="btn-ghost">⬇ Export CSV</button>
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">BK</div>
+    </div>
+  </div>
+  <!-- Filter bar -->
+  <div style="display:flex;align-items:center;gap:8px;padding:8px 20px;background:#FAFBFC;flex-wrap:wrap">
+    <!-- Date range -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted);white-space:nowrap">📅 Date</span>
+      <div class="date-pills">
+        <button class="date-pill" onclick="setRange('Today')">Today</button>
+        <button class="date-pill" onclick="setRange('7d')">7d</button>
+        <button class="date-pill active" onclick="setRange('30d')">30d</button>
+        <button class="date-pill" onclick="setRange('60d')">60d</button>
+        <button class="date-pill" onclick="setRange('custom')" id="custom-date-pill">Custom</button>
+      </div>
+      <!-- Custom date inputs (hidden by default) -->
+      <div id="custom-dates" style="display:none;align-items:center;gap:4px">
+        <input type="date" id="date-from" class="filter-select" style="padding:5px 8px"/>
+        <span style="font-size:11px;color:var(--text-muted)">→</span>
+        <input type="date" id="date-to" class="filter-select" style="padding:5px 8px"/>
+      </div>
+    </div>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    <!-- Source filter -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted)">📡 Source</span>
+      <select class="filter-select" id="src-filter" onchange="applyFilter()">
+        <option value="">All Sources</option>
+        <option>AI Receptionist</option>
+        <option>Facebook Ads</option>
+        <option>Google Ads</option>
+        <option>Website Form</option>
+        <option>Walk-in</option>
+        <option>Referral</option>
+      </select>
+    </div>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    <!-- Center filter -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted)">📍 Center</span>
+      <select class="filter-select" id="ctr-filter" onchange="applyFilter()">
+        <option value="">All Centers</option>
+        <option>Beverly Hills</option>
+        <option>Santa Monica</option>
+        <option>Pasadena</option>
+      </select>
+    </div>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    <!-- Lead type filter -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted)">💉 Type</span>
+      <select class="filter-select" id="type-filter" onchange="applyFilter()">
+        <option value="">All Types</option>
+        <option>Botox</option>
+        <option>Laser Hair Removal</option>
+        <option>Facials</option>
+        <option>CoolSculpting</option>
+        <option>Membership</option>
+        <option>Consultation</option>
+      </select>
+    </div>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    <!-- Agent filter -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted)">👤 Agent</span>
+      <select class="filter-select" id="agent-filter" onchange="applyFilter()">
+        <option value="">All Agents</option>
+        <option>Sarah Chen</option>
+        <option>Marcus Rivera</option>
+        <option>Aria AI</option>
+        <option>Nexus AI</option>
+      </select>
+    </div>
+    <div style="width:1px;height:20px;background:var(--border)"></div>
+    <!-- Stage filter -->
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;font-weight:600;color:var(--text-muted)">⬇ Stage</span>
+      <select class="filter-select" id="stage-filter" onchange="applyFilter()">
+        <option value="">All Stages</option>
+        <option>New</option>
+        <option>Contacted</option>
+        <option>Interested</option>
+        <option>Qualified</option>
+        <option>Booked</option>
+        <option>Won</option>
+        <option>Lost</option>
+      </select>
+    </div>
+    <!-- Active filter chips -->
+    <div id="active-filter-chips" style="display:flex;gap:4px;flex-wrap:wrap;margin-left:4px"></div>
   </div>
 </header>
 
@@ -307,9 +391,11 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
         <div class="section-icon">📡</div>
         <div><div class="section-title">Lead Source Distribution</div><div class="section-sub">Volume + conversion by channel</div></div>
       </div>
-      <div class="flex gap-3 items-center">
-        <canvas id="pieChart" width="160" height="160" style="flex-shrink:0;width:160px;height:160px"></canvas>
-        <div class="pie-legend" id="pie-legend"></div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="flex-shrink:0;width:120px;height:120px;position:relative">
+          <canvas id="pieChart" style="width:120px;height:120px;display:block"></canvas>
+        </div>
+        <div class="pie-legend" id="pie-legend" style="flex:1;min-width:0"></div>
       </div>
       <div id="best-source-badge" class="mt-3"></div>
     </div>
@@ -636,13 +722,19 @@ function toggleStage(s){activeStage=activeStage===s?null:s;}
 function renderPie(){
   const ctx=document.getElementById('pieChart').getContext('2d');
   if(pieInst){pieInst.destroy();}
+  ctx.canvas.width=120; ctx.canvas.height=120;
   pieInst=new Chart(ctx,{
     type:'doughnut',
     data:{
       labels:SOURCES.map(s=>s.name),
-      datasets:[{data:SOURCES.map(s=>s.leads),backgroundColor:COLORS.sources,borderWidth:2,borderColor:'#fff',hoverOffset:6}]
+      datasets:[{data:SOURCES.map(s=>s.leads),backgroundColor:COLORS.sources,borderWidth:2,borderColor:'#fff',hoverOffset:4}]
     },
-    options:{cutout:'55%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} leads`}}},animation:{duration:800}}
+    options:{
+      cutout:'60%',
+      responsive:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} leads`}}},
+      animation:{duration:800}
+    }
   });
   const total=SOURCES.reduce((s,d)=>s+d.leads,0);
   document.getElementById('pie-legend').innerHTML=SOURCES.map((s,i)=>`
@@ -896,15 +988,78 @@ function dismissRisk(id){dismissed.add(id);renderRisk();}
 // ─── DATE RANGE ───────────────────────────────────────────────────────────────
 function setRange(r){
   currentRange=r;
-  document.querySelectorAll('.date-pill').forEach(b=>{b.classList.toggle('active',b.textContent.trim()===r||(r==='30d'&&b.textContent==='30 days')||(r==='7d'&&b.textContent==='7 days')||(r==='60d'&&b.textContent==='60 days'));});
-  // Match pill text
+  const labelMap={'Today':'Today','7d':'7d','30d':'30d','60d':'60d','custom':'Custom'};
   document.querySelectorAll('.date-pill').forEach(b=>{
-    const map={'Today':'Today','7d':'7 days','30d':'30 days','60d':'60 days'};
-    b.classList.toggle('active',b.textContent.trim()===map[r]||b.textContent.trim()===r);
+    b.classList.toggle('active', b.textContent.trim()===(labelMap[r]||r));
   });
+  // Show/hide custom date inputs
+  const panel=document.getElementById('custom-dates');
+  if(panel) panel.style.display=r==='custom'?'flex':'none';
   renderKPIs(); renderTrend();
 }
-function applyFilter(){/* filter triggers could re-render source table */renderSourceTable();}
+function applyFilter(){
+  renderSourceTable();
+  renderAgents();
+  renderTypes();
+  renderCenters();
+  updateFilterChips();
+}
+
+function updateFilterChips(){
+  const filters=[
+    {id:'src-filter',   label:'Source'},
+    {id:'ctr-filter',   label:'Center'},
+    {id:'type-filter',  label:'Type'},
+    {id:'agent-filter', label:'Agent'},
+    {id:'stage-filter', label:'Stage'},
+  ];
+  const active=filters.filter(f=>document.getElementById(f.id)&&document.getElementById(f.id).value);
+  const chipsEl=document.getElementById('active-filter-chips');
+  const clearBtn=document.getElementById('clear-filters-btn');
+  if(chipsEl){
+    chipsEl.innerHTML=active.map(f=>`
+      <span class="filter-chip">
+        ${f.label}: <b>${document.getElementById(f.id).value}</b>
+        <button onclick="clearFilter('${f.id}')">✕</button>
+      </span>
+    `).join('');
+  }
+  if(clearBtn) clearBtn.style.display=active.length>0?'inline-flex':'none';
+}
+
+function clearFilter(id){
+  const el=document.getElementById(id);
+  if(el){el.value='';applyFilter();}
+}
+
+function clearAllFilters(){
+  ['src-filter','ctr-filter','type-filter','agent-filter','stage-filter'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  const search=document.getElementById('lead-search');
+  if(search)search.value='';
+  applyFilter();
+}
+
+function applySearch(val){
+  // Highlight matching text in risk leads and update filter chips
+  updateFilterChips();
+  // Visual feedback: show clear btn if search has value
+  const clearBtn=document.getElementById('clear-filters-btn');
+  if(clearBtn&&val.trim()) clearBtn.style.display='inline-flex';
+}
+
+// Custom date range toggle
+document.addEventListener('DOMContentLoaded',function(){
+  const customPill=document.getElementById('custom-date-pill');
+  if(customPill){
+    customPill.addEventListener('click',function(){
+      const panel=document.getElementById('custom-dates');
+      if(panel) panel.style.display=panel.style.display==='none'?'flex':'none';
+    });
+  }
+});
 
 // ─── CHATBOT ─────────────────────────────────────────────────────────────────
 let chatOpen=false;
@@ -1058,8 +1213,7 @@ window.addEventListener('load',function(){
   renderNurture();
   renderRisk();
   renderChatUI();
-  // Show header sub on wider screens
-  if(window.innerWidth>700)document.getElementById('hdr-sub').style.display='inline';
+  updateFilterChips();
   // Hide loading overlay
   setTimeout(()=>{
     const loading=document.getElementById('loading');

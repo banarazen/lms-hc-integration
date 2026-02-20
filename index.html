@@ -152,17 +152,39 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
 .badge-purple{background:var(--zn-purple-bg);color:var(--zn-purple)}
 .badge-green{background:var(--zn-green-bg);color:var(--zn-green)}
 
-/* ── Funnel ── */
-.funnel-stage{border-radius:var(--r-3);padding:12px;cursor:pointer;margin-bottom:8px;transition:all .2s}
-.funnel-stage:hover{opacity:.9}
-.funnel-bar-wrap{height:20px;background:rgba(255,255,255,.5);border-radius:var(--r-2);overflow:hidden;margin-top:6px}
-.funnel-bar{height:100%;border-radius:var(--r-2);transition:width .8s ease}
-.funnel-stage-name{font-size:12px;font-weight:700;letter-spacing:.01em}
-.funnel-meta{display:flex;justify-content:space-between;align-items:center}
-.funnel-count{font-size:16px;font-weight:700}
+/* ── Funnel (tapered trapezoid style) ── */
+.funnel-wrap{display:flex;flex-direction:column;gap:3px;padding:4px 0}
+.funnel-row{display:flex;align-items:stretch;gap:10px;cursor:pointer;transition:opacity .2s}
+.funnel-row:hover{opacity:.85}
+.funnel-trap-wrap{flex:1;display:flex;justify-content:center}
+.funnel-trap{
+  position:relative;height:36px;display:flex;align-items:center;
+  justify-content:center;border-radius:2px;transition:width .7s ease;
+}
+.funnel-trap-label{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:11px;font-weight:700;color:#fff;white-space:nowrap;letter-spacing:.01em;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+}
+.funnel-trap-count{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:13px;font-weight:900;color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+}
+.funnel-side{
+  width:72px;flex-shrink:0;display:flex;flex-direction:column;
+  justify-content:center;
+}
+.funnel-side.left{align-items:flex-end;text-align:right}
+.funnel-side.right{align-items:flex-start;text-align:left}
+.funnel-drop{font-size:10px;font-weight:700}
+.funnel-drop.hi{color:var(--zn-red)}
+.funnel-drop.md{color:var(--zn-amber)}
+.funnel-drop.ok{color:var(--zn-green)}
+.funnel-days{font-size:10px;color:var(--zn-text-3)}
 .drop-off-hi{color:var(--zn-red);font-size:11px;font-weight:700}
 .drop-off-md{color:var(--zn-amber);font-size:11px;font-weight:700}
-.pipeline-total{background:var(--zn-teal-bg);border-radius:var(--r-3);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px}
+.pipeline-total{background:var(--zn-teal-bg);border-radius:var(--r-3);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12px}
 .pipeline-total b{color:var(--zn-teal);font-size:14px;font-weight:700}
 
 /* ── Source table ── */
@@ -444,19 +466,19 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
               <div class="section-icon">⬇</div>
               <div><div class="section-title">Lead Funnel</div><div class="section-sub">Stage-by-stage conversion</div></div>
             </div>
-            <div id="funnel-stages"></div>
+            <div class="funnel-wrap" id="funnel-stages"></div>
             <div class="pipeline-total"><span style="color:var(--zn-text-2);font-size:12px">Total Pipeline Value</span><b id="pipeline-val"></b></div>
           </div>
-          <div class="card">
+          <div class="card" style="display:flex;flex-direction:column">
             <div class="section-hdr">
               <div class="section-icon">📡</div>
               <div><div class="section-title">Lead Source Distribution</div><div class="section-sub">Volume + conversion by channel</div></div>
             </div>
-            <div style="display:flex;align-items:center;gap:16px">
-              <div style="flex-shrink:0;width:120px;height:120px"><canvas id="pieChart" style="width:120px;height:120px;display:block"></canvas></div>
+            <div style="display:flex;align-items:flex-start;gap:16px">
+              <div style="flex-shrink:0;width:110px;height:110px"><canvas id="pieChart" style="width:110px;height:110px;display:block"></canvas></div>
               <div class="pie-legend" id="pie-legend" style="flex:1;min-width:0"></div>
             </div>
-            <div id="best-source-badge" class="mt-3"></div>
+            <div id="best-source-badge" style="margin-top:10px"></div>
           </div>
         </div>
 
@@ -596,10 +618,10 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
 <!-- CHAT PANEL -->
 <div id="chat-panel">
   <div class="chat-header">
-    <div class="chat-avatar">✦</div>
+    <div class="chat-avatar" style="font-size:18px">✦</div>
     <div style="flex:1">
-      <div class="chat-header-name">Analytics Assistant</div>
-      <div class="chat-header-sub">Powered by Claude AI · Live data</div>
+      <div class="chat-header-name" style="font-size:14px;letter-spacing:.01em">Zara <span style="font-size:10px;opacity:.7;font-weight:400;letter-spacing:.06em">ZENOTI AI</span></div>
+      <div class="chat-header-sub">Zenoti Analytics &amp; Revenue Assistant · Live data</div>
     </div>
     <button class="chat-close" onclick="toggleChat()">✕</button>
   </div>
@@ -612,7 +634,7 @@ main{max-width:1600px;margin:0 auto;padding:20px;display:flex;flex-direction:col
     <input class="chat-input" id="chat-input" placeholder="Ask anything about your leads…" onkeydown="if(event.key==='Enter')sendChat()"/>
     <button class="chat-send" onclick="sendChat()">↑</button>
   </div>
-  <div class="chat-powered">Claude claude-sonnet-4-6 · RAG over your lead data</div>
+  <div class="chat-powered">Zara · Zenoti Analytics &amp; Revenue Assistant · Powered by Claude</div>
 </div>
 
 <script>
@@ -733,22 +755,31 @@ function renderKPIs(){
     </div>`).join('');
 }
 
-// ─── FUNNEL ───────────────────────────────────────────────────────────────────
+// ─── FUNNEL (tapered trapezoid) ────────────────────────────────────────────
 function renderFunnel(){
   const max=FUNNEL[0].count;
-  document.getElementById('funnel-stages').innerHTML=FUNNEL.map(s=>`
-    <div class="funnel-stage" style="background:${s.color}18" onclick="toggleStage('${s.stage}')">
-      <div class="funnel-meta">
-        <span class="funnel-stage-name" style="color:${s.color}">${s.stage}</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          ${s.avgDays?`<span style="font-size:10px;color:var(--zn-text-2)">⏱ ${s.avgDays}d avg</span>`:''}
-          ${s.dropOff!==null?`<span class="${s.dropOff>25?'drop-off-hi':'drop-off-md'}">${s.dropOff>25?'🔴':'🟡'} ${s.dropOff}% drop-off</span>`:''}
-          <span class="funnel-count" style="color:${s.color}">${fmt.num(s.count)}</span>
+  const minW=42, maxW=100; // % widths for trapezoid taper
+  document.getElementById('funnel-stages').innerHTML=FUNNEL.map((s,i)=>{
+    const pct=Math.round((s.count/max)*100);
+    const w=minW+((maxW-minW)*(pct/100));
+    const dropClass=s.dropOff===null?'':'drop'+((s.dropOff>30)?'hi':(s.dropOff>20)?'md':'ok');
+    const dropColor=s.dropOff===null?'':s.dropOff>30?'hi':s.dropOff>20?'md':'ok';
+    return `
+    <div class="funnel-row" onclick="toggleStage('${s.stage}')">
+      <div class="funnel-side left">
+        ${s.dropOff!==null?`<span class="funnel-drop ${dropColor}">${s.dropOff>30?'▼':'↓'} ${s.dropOff}%</span><span class="funnel-days">drop-off</span>`:'<span class="funnel-days">entry</span>'}
+      </div>
+      <div class="funnel-trap-wrap">
+        <div class="funnel-trap" style="width:${w}%;background:${s.color};border-radius:${i===0?'6px 6px 2px 2px':i===FUNNEL.length-1?'2px 2px 6px 6px':'2px'}">
+          <span class="funnel-trap-label">${s.stage}</span>
+          <span class="funnel-trap-count">${fmt.num(s.count)}</span>
         </div>
       </div>
-      <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${(s.count/max)*100}%;background:${s.color}"></div></div>
-      ${s.value>0?`<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--zn-text-2);margin-top:4px"><span>Pipeline value</span><span style="font-weight:700">${fmt.usd(s.value)}</span></div>`:''}
-    </div>`).join('');
+      <div class="funnel-side right">
+        ${s.avgDays?`<span class="funnel-days" style="color:var(--zn-text-2);font-weight:700">⏱ ${s.avgDays}d</span><span class="funnel-days">avg</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
   document.getElementById('pipeline-val').textContent=fmt.usd(FUNNEL.reduce((s,d)=>s+d.value,0));
 }
 function toggleStage(s){activeStage=activeStage===s?null:s;}
@@ -757,7 +788,7 @@ function toggleStage(s){activeStage=activeStage===s?null:s;}
 function renderPie(){
   const ctx=document.getElementById('pieChart').getContext('2d');
   if(pieInst)pieInst.destroy();
-  ctx.canvas.width=120;ctx.canvas.height=120;
+  ctx.canvas.width=110;ctx.canvas.height=110;
   pieInst=new Chart(ctx,{type:'doughnut',data:{labels:SOURCES.map(s=>s.name),datasets:[{data:SOURCES.map(s=>s.leads),backgroundColor:COLORS.sources,borderWidth:2,borderColor:'#fff',hoverOffset:4}]},options:{cutout:'60%',responsive:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} leads`}}},animation:{duration:800}}});
   const total=SOURCES.reduce((s,d)=>s+d.leads,0);
   document.getElementById('pie-legend').innerHTML=SOURCES.map((s,i)=>`
@@ -997,7 +1028,7 @@ function toggleChat(){
   document.getElementById('chat-panel').classList.toggle('open',chatOpen);
   document.getElementById('chat-fab').style.display=chatOpen?'none':'flex';
   if(chatOpen&&document.getElementById('chat-messages').childElementCount===0)
-    addMsg('ai',"Hi! I'm your Zenoti Analytics Assistant. I have full context of your lead data.\n\nAsk me anything, or pick a suggestion below 👇");
+    addMsg('ai',"Hi! I'm Zara — your Zenoti Analytics & Revenue Assistant ✦\n\nI have full context of your leads, pipeline, agents, and revenue data.\n\nAsk me anything or pick a suggestion below 👇");
 }
 const CHAT_CATS={
   'Lead Sources':["Which lead sources are performing best this month?","Compare Facebook vs AI Receptionist conversion rates","Which source has the highest cost per lead?"],
